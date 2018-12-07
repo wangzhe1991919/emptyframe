@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/emptydatabase
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
