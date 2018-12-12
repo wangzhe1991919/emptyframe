@@ -8,7 +8,7 @@ spring:
       prefix: /WEB-INF/views/
       suffix: .jsp
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/emptydatabase
+    url: jdbc:mysql://127.0.0.1:3306/emptyframe
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root

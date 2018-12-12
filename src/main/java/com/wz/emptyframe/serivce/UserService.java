@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
  * @author ta0546 wz
  * @time 2018/12/7
  */
-@Service
-public interface UserService extends IBaseService<User> {
+public interface UserService {
 
 }

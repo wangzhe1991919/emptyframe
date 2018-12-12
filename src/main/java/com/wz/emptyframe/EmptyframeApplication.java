@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.baomidou.mybatisplus.samples.quickstart.mapper")
+@MapperScan("com.wz.emptyframe.mapper")
 public class EmptyframeApplication {
 
     public static void main(String[] args) {
