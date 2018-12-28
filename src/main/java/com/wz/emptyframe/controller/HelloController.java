@@ -2,18 +2,14 @@ package com.wz.emptyframe.controller;
 
 import com.wz.emptyframe.entity.User;
 import com.wz.emptyframe.mapper.UserMapper;
-import com.wz.emptyframe.serivce.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import java.io.File;
-import java.io.FileFilter;
+import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.Map;
 
 /**
  * @author ta0546 wz
@@ -28,23 +24,24 @@ public class HelloController {
 
     @RequestMapping(value = "/hello")
     public String hellTest() {
-        List<User> list = userMapper.selectList(null);
-        String s = "d";
-
-        list.forEach(System.out::println);
-        Function<Integer, Integer> func = p -> p * 10;
-        func.apply(1);
-
-        //Consumer printStrConsumer = HelloController::toUpper;
-
+        /*List<User> list = userMapper.selectList(null);
         list.forEach((User user) ->{
             if (user != null) {
-                System.out.println("===>" + user.getEmail());
+                user = null;
             }
         });
-        FileFilter java = (File f) -> f.getName().endsWith("*.java");
-
+        list.forEach(System.out::println);*/
         return "index";
+    }
+
+    @RequestMapping(value = "getData")
+    @ResponseBody
+    public Object getData() {
+        List<User> list = userMapper.selectList(null);
+        Map map = new HashMap();
+        map.put("code",0);
+        map.put("data",list);
+        return map;
     }
 
     public static void toUpper(String str) {

@@ -16,7 +16,7 @@ import java.util.List;
 public class EmptyframeApplicationTests {
 
 
-   /* @Autowired
+    @Autowired
     private UserMapper userMapper;
 
     @Test
@@ -24,6 +24,6 @@ public class EmptyframeApplicationTests {
         System.out.println(("----- selectAll method test ------"));
         List<User> userList = userMapper.selectList(null);
         userList.forEach(System.out::println);
-    }*/
+    }
 
 }
