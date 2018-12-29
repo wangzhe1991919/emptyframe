@@ -1,7 +1,8 @@
 package com.wz.emptyframe;
 
+import com.wz.emptyframe.dao.UserDao;
 import com.wz.emptyframe.entity.User;
-import com.wz.emptyframe.mapper.UserMapper;
+import com.wz.emptyframe.serivce.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +18,17 @@ public class EmptyframeApplicationTests {
 
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userDao;
+
+    @Autowired
+    private UserService userService;
 
     @Test
     public void contextLoads() {
         System.out.println(("----- selectAll method test ------"));
-        List<User> userList = userMapper.selectList(null);
+        //List<User> userList = userDao.selectList(null);
+
+        List<User> userList = userService.list();
         userList.forEach(System.out::println);
     }
 

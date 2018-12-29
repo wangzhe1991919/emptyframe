@@ -11,6 +11,7 @@ layui.use('table', function(){
         ,url: common.url.getData
         ,toolbar: '#toolbarDemo'
         ,title: '用户数据表'
+        ,height: 'full-140' //高度最大化减去差值
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
             ,{field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true}

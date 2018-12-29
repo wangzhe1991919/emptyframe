@@ -1,7 +1,6 @@
 package com.wz.emptyframe.controller;
 
 import com.wz.emptyframe.entity.User;
-import com.wz.emptyframe.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +19,7 @@ public class HelloController {
 
 
     @Autowired
-    private UserMapper userMapper;
+    private com.wz.emptyframe.dao.UserDao UserDao;
 
     @RequestMapping(value = "/hello")
     public String hellTest() {
@@ -34,10 +33,10 @@ public class HelloController {
         return "index";
     }
 
-    @RequestMapping(value = "getData")
+    @RequestMapping(value = "/getData")
     @ResponseBody
     public Object getData() {
-        List<User> list = userMapper.selectList(null);
+        List<User> list = UserDao.selectList(null);
         Map map = new HashMap();
         map.put("code",0);
         map.put("data",list);
