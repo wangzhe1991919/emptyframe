@@ -1,11 +1,10 @@
-package com.wz.emptyframe.mapper;
+package com.wz.emptyframe.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wz.emptyframe.entity.User;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserMapper extends BaseMapper<User> {
+public interface UserDao extends BaseMapper<User> {
 
 }

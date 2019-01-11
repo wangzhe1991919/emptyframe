@@ -1,9 +1,8 @@
 package com.wz.emptyframe;
 
-import com.wz.emptyframe.mapper.UserMapper;
+import com.wz.emptyframe.dao.UserDao;
 import com.wz.emptyframe.entity.User;
 import com.wz.emptyframe.serivce.UserService;
-import com.wz.emptyframe.serivce.impl.UserServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,7 +20,7 @@ public class EmptyframeApplicationTests {
 
 
     @Autowired
-    private UserMapper userMapper;
+    private UserDao userMapper;
 
     @Autowired
     @Qualifier("userServiceImpl")
@@ -33,6 +33,12 @@ public class EmptyframeApplicationTests {
 
         List<User> userList = userService.list();
         userList.forEach(System.out::println);
+
+        userList.forEach(item -> { System.out.println(item.getAge()); });
+
+        String[] s = {"1","2"};
+
+        Arrays.sort(s,(String s1,String s2) -> (s1.compareTo(s2)));
     }
 
 }
