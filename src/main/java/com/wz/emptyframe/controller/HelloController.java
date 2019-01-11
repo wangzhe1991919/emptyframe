@@ -19,7 +19,7 @@ public class HelloController {
 
 
     @Autowired
-    private com.wz.emptyframe.dao.UserDao UserDao;
+    private com.wz.emptyframe.mapper.UserMapper UserDao;
 
     @RequestMapping(value = "/hello")
     public String hellTest() {

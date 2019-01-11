@@ -3,6 +3,7 @@ package com.wz.emptyframe.controller.system;
 import com.wz.emptyframe.query.system.UserQuery;
 import com.wz.emptyframe.serivce.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
+    @Qualifier("userServiceImpl")
     private UserService userService;
 
     @RequestMapping(value = "/getUserList",method = {RequestMethod.POST, RequestMethod.GET})
