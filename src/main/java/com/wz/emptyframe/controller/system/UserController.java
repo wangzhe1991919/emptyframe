@@ -1,9 +1,7 @@
 package com.wz.emptyframe.controller.system;
 
-import com.wz.emptyframe.dbmonitor.CompareTable;
-import com.wz.emptyframe.dbmonitor.DBBaseInfo;
-import com.wz.emptyframe.dbmonitor.DBMonitor;
-import com.wz.emptyframe.dbmonitor.DBMonitorResultSet;
+import com.baomidou.mybatisplus.core.conditions.interfaces.Compare;
+import com.wz.emptyframe.dbmonitor.*;
 import com.wz.emptyframe.query.system.UserQuery;
 import com.wz.emptyframe.serivce.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +69,52 @@ public class UserController {
         List<DBMonitorResultSet> resultList = dbMonitor.getInfos(dbs);
 
         List<CompareTable> compareTables = dbMonitor.compare(resultList);
-        return compareTables;
+
+
+
+        String result="【基准表：127.0.0.1_DLJC，对比表：127.0.0.1_DLYSXY】";
+
+        String more = "";
+        String less = "";
+
+
+        String moreField = "";
+        String lessField = "";
+
+        String diffField = "";
+
+        for (CompareTable compare : compareTables) {
+            if (compare.getStatus() == -1) {
+                more += compare.getName() + ",";
+            }
+            if (compare.getStatus() == 1) {
+                less += compare.getName() + ",";
+            }
+            if (compare.getStatus() == 0) {
+                List<CompareField> fieldList = compare.getCompareFieldList();
+                for (CompareField cf : fieldList) {
+                    if (cf.getStatus() == -1) {
+                        moreField += ("[表:"+ compare.getName() + "删除字段：" + cf.getName() + "],");
+                    }
+                    if (cf.getStatus() == 1) {
+                        lessField += ("[表：" + compare.getName() + "新增字段："+cf.getName()+ "],");
+                    }
+                    if (cf.getStatus() == 2) {
+                        diffField += ("{表：" + cf.getName() +"}----->"
+                                + "[基准库字段类型："+cf.getBasicType()+"]"
+                                + "[对比库字段类型："+cf.getFollowType()+"]"
+                                + "[基准库字段长度："+cf.getBasicLength()+"]"
+                                + "[对比库字段长度："+cf.getFollowLength()+"]"
+                                + "[基准库字段描述："+cf.getBasicDesc()+"]"
+                                + "[对比库字段描述："+cf.getFollowDesc()+"]");
+                    }
+                }
+            }
+        }
+        result = result + "【删除了表："+more+"】【新增了表："+less+"】" + "【删除字段："+moreField+"】" + "【新增字段："+lessField+"】" +
+                "【字段不同："+diffField+"】";
+
+
+        return result;
     }
 }

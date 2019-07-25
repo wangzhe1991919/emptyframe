@@ -84,9 +84,12 @@ public class DBMonitor {
         Map<String,List<Field>> tableFieldMap = new HashMap<String,List<Field>>();
 
         // 连接驱动
-        String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        //String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        String DRIVER = "oracle.jdbc.OracleDriver";
+
         // 连接路径
-        String URL = "jdbc:sqlserver://"+dbBaseInfo.getIp()+":1433;databaseName=" + dbBaseInfo.getDbname();
+        //String URL = "jdbc:sqlserver://"+dbBaseInfo.getIp()+":1433;databaseName=" + dbBaseInfo.getDbname();
+        String URL = "jdbc:oracle:thin:@"+dbBaseInfo.getIp()+":1521:xe";
 
         Connection conn = null;
         ResultSet rs = null;
@@ -95,11 +98,19 @@ public class DBMonitor {
         try {
             Class.forName(DRIVER);
             conn = DriverManager.getConnection(URL, dbBaseInfo.getUsername(), dbBaseInfo.getPassword());
-            String sql = "select * from sys.tables";
+            //sql-server
+            //String sql = "select * from sys.tables";
+
+            //oracle
+            String sql = "SELECT * FROM DBA_TABLES WHERE OWNER='"+ dbBaseInfo.getDbname()+"';";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String name = rs.getString("name");
+                //sqlserver
+                //String name = rs.getString("name");
+
+                //oracle
+                String name = rs.getString("TABLE_NAME");
                 if (StringUtils.isNotEmpty(name)) {
                     tableNames.add(name);
                 }

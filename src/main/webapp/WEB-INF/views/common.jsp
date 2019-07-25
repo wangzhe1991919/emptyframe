@@ -13,6 +13,5 @@
         <script type="text/javascript">var _rootPath = "${rootPath}";</script>
         <script src="${rootPath}/static/layui/layui.all.js"></script>
         <script src="${rootPath}/static/scripts/pages/common.js"></script>
-
     </head>
 </html>

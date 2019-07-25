@@ -30,7 +30,7 @@ public class HelloController {
             }
         });
         list.forEach(System.out::println);*/
-        return "index";
+        return "/WEB-INF/index.jsp";
     }
 
     @RequestMapping(value = "/getData")
