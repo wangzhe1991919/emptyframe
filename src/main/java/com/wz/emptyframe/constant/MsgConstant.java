@@ -13,4 +13,7 @@ public class MsgConstant {
 
     public static final String UPDATE_FAIL = "更新失败！";
 
+    public static final int RESPONSECODE_200 = 200;
+
+    public static final int RESPONSECODE_500 = 500;
 }
