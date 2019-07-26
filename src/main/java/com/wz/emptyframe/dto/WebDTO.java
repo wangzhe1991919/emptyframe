@@ -12,7 +12,7 @@ public class WebDTO {
 	/**
 	 * 返回状态 true成功， false失败
 	 */
-	private boolean status;
+	private int code;
 	/**
 	 * 成功或失败内容提示
 	 */
@@ -21,6 +21,13 @@ public class WebDTO {
 	 * 相关数据
 	 */
 	private Object data;
+
+
+    WebDTO(int code,String message,Object data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 	
 	/**
 	 * 成功提示
@@ -29,7 +36,7 @@ public class WebDTO {
 	 * @return
 	 */
 	public static Object success(String message,Object data) {
-		return new WebDTO(true,message,data);
+		return new WebDTO(MsgConstant.RESPONSECODE_200,message,data);
 	}
 	/**
 	 * 失败提示
@@ -38,7 +45,7 @@ public class WebDTO {
 	 * @return
 	 */
 	public static Object faliure(String message,Object data) {
-		return new WebDTO(false,message,data);
+		return new WebDTO(MsgConstant.RESPONSECODE_500,message,data);
 	}
 	/**
 	 * 成功提示
@@ -53,7 +60,7 @@ public class WebDTO {
 	 * @return
 	 */
 	public static Object success() {
-        return WebDTO.success("");
+        return WebDTO.success(MsgConstant.SUCCESS);
     }
 	/**
 	 * 失败提示
@@ -70,7 +77,7 @@ public class WebDTO {
 	 * @param data
 	 * @return
 	 */
-	public static Object response(boolean b,String message,String data) {
+	public static Object response(int b,String message,String data) {
 	    return new WebDTO(b,"",data);
 	}
 	
@@ -80,23 +87,9 @@ public class WebDTO {
      * @param b
      * @return
      */
-    public static Object response(boolean b) {
+    public static Object response(int b) {
         return response(b,"","");
     }
-	
-	public WebDTO(boolean b, String msg, Object o) {
-		message = msg;
-		status = b;
-		data = o;
-	}
-
-	public boolean isStatus() {
-		return status;
-	}
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
 
 	public Object getData() {
 		return data;
@@ -114,4 +107,11 @@ public class WebDTO {
 		this.message = message;
 	}
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 }
