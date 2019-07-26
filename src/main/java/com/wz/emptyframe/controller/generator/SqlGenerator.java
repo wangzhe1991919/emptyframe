@@ -2,14 +2,16 @@ package com.wz.emptyframe.controller.generator;
 
 import com.wz.emptyframe.constant.DictConstant;
 import com.wz.emptyframe.dto.WebDTO;
+import com.wz.emptyframe.dto.generator.GeneratorField;
 import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
 import com.wz.emptyframe.util.generator.IDCardGenerator;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
@@ -41,11 +43,15 @@ public class SqlGenerator {
      */
     @RequestMapping("/genInsertSql")
     public Object genInsertSql(GeneratorParamDTO param) {
-
         if (param == null) {
             return WebDTO.faliure(NO_PARAM,null);
         }
-        return WebDTO.success(genSql(param));
+        StringBuffer data = new StringBuffer();
+        for (int i = 0; i < param.getCounts(); i++) {
+            data.append(genSql(param));
+            data.append("\r\n");
+        }
+        return WebDTO.success(data);
     }
 
     /**
@@ -73,8 +79,10 @@ public class SqlGenerator {
                 String dateFormatter = field.getType() == DictConstant.FIELD_DATETIME?DictConstant.ORACLE_DATETIME:field.getType() == DictConstant.FIELD_DATE?DictConstant.ORACLE_DATE:null;
                 if (dateFormatter != null) {
                     valueString.append("TO_TIMESTAMP('").append(field.getValue()).append("','").append(dateFormatter).append("'),");
+                } else {
+                    valueString.append("'").append(field.getValue()).append("',");
                 }
-            } else {
+            } else if (param.getDataBaseType() == DictConstant.DATATYPE_MYSQL) {
                 valueString.append("'").append(field.getValue()).append("',");
             }
         });
@@ -224,7 +232,7 @@ public class SqlGenerator {
      * @return
      */
     public static String removeLastStr(String s) {
-        return s.substring(s.length()-1,s.length());
+        return s.substring(0,s.length()-1);
     }
 
     /**
@@ -233,19 +241,77 @@ public class SqlGenerator {
      */
     public static void main(String[] args) {
         SqlGenerator sqlGenerator = new SqlGenerator();
-        for (int i=0;i<10;i++) {
-            //System.out.println(sqlGenerator.genString(5));
-            //System.out.println(sqlGenerator.genInteger(9));
-            //System.out.println(sqlGenerator.genDateStr(3,DictConstant.DATE_YYYY_MM_DD_HH_MM_SS));
-            //System.out.println(sqlGenerator.genAddress());
-            //System.out.println(sqlGenerator.genMobile());
-            //System.out.println(sqlGenerator.genUsername());
-        }
+        /*for (int i=0;i<10;i++) {
+            System.out.println(sqlGenerator.genString(5));
+            System.out.println(sqlGenerator.genInteger(9));
+            System.out.println(sqlGenerator.genDateStr(3,DictConstant.DATE_YYYY_MM_DD_HH_MM_SS));
+            System.out.println(sqlGenerator.genAddress());
+            System.out.println(sqlGenerator.genMobile());
+            System.out.println(sqlGenerator.genUsername());
+        }*/
 
         //INSERT INTO "PORTAL"."SYS_USER"("ID", "DEPT_ID", "LOGIN_NAME", "PASSWORD", "ID_CARD", "MOBILE", "EMAIL", "ADDRESS", "HEAD_ICON_PATH", "STATUS", "CREATE_DATE", "CREATE_BY", "UPDATE_DATE", "UPDATE_BY", "REMARKS", "DEL_FLAG", "SEX", "AGE", "BIRTHDAY", "NAME") VALUES ('4', '1', 'admin', 'admin', '2', '3', '4', '5', '3', '1', TO_TIMESTAMP('2019-07-25 16:48:35', 'SYYYY-MM-DD HH24:MI:SS'), '23', TO_TIMESTAMP('2019-07-11 16:48:41', 'SYYYY-MM-DD HH24:MI:SS'), '32', '12', '0', '2', '11', '21', '王五');
 
 
         GeneratorParamDTO generatorParamDTO = new GeneratorParamDTO();
 
+        generatorParamDTO.setCounts(10);
+        generatorParamDTO.setTableName("SYS_USER");
+        generatorParamDTO.setDataBaseType(DictConstant.DATATYPE_ORACLE);
+
+        List<GeneratorField> tmpList = new ArrayList<GeneratorField>();
+
+        GeneratorField generatorField = new GeneratorField();
+        generatorField.setLength(1);
+        generatorField.setName("ID");
+        generatorField.setType(DictConstant.FIELD_PK);
+        tmpList.add(generatorField);
+
+        GeneratorField generatorField1 = new GeneratorField();
+        generatorField1.setLength(5);
+        generatorField1.setName("DEPT_ID");
+        generatorField1.setType(DictConstant.FIELD_INTEGER);
+        tmpList.add(generatorField1);
+
+        GeneratorField generatorField2 = new GeneratorField();
+        generatorField2.setLength(5);
+        generatorField2.setName("ID_CARD");
+        generatorField2.setType(DictConstant.FIELD_IDCARD);
+        tmpList.add(generatorField2);
+
+        GeneratorField generatorField3 = new GeneratorField();
+        generatorField3.setLength(5);
+        generatorField3.setName("MOBILE");
+        generatorField3.setType(DictConstant.FIELD_MOBILE);
+        tmpList.add(generatorField3);
+
+        GeneratorField generatorField4 = new GeneratorField();
+        generatorField4.setLength(5);
+        generatorField4.setName("EMAIL");
+        generatorField4.setType(DictConstant.FIELD_EMAIL);
+        tmpList.add(generatorField4);
+
+        GeneratorField generatorField5 = new GeneratorField();
+        generatorField5.setLength(5);
+        generatorField5.setName("ADDRESS");
+        generatorField5.setType(DictConstant.FIELD_ADDRESS);
+        tmpList.add(generatorField5);
+
+        GeneratorField generatorField6 = new GeneratorField();
+        generatorField6.setLength(5);
+        generatorField6.setName("CREATE_DATE");
+        generatorField6.setType(DictConstant.FIELD_DATETIME);
+        tmpList.add(generatorField6);
+
+        GeneratorField generatorField7 = new GeneratorField();
+        generatorField7.setLength(5);
+        generatorField7.setName("NAME");
+        generatorField7.setType(DictConstant.FIELD_USERNAME);
+        tmpList.add(generatorField7);
+
+        generatorParamDTO.setFields(tmpList);
+
+        WebDTO o = (WebDTO)sqlGenerator.genInsertSql(generatorParamDTO);
+        System.out.println(o.getData());
     }
 }

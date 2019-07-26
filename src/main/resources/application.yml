@@ -3,7 +3,7 @@ server:
   tomcat:
     uri-encoding: UTF-8
   servlet:
-    context-path: /test
+    context-path: /
 spring:
   mvc:
     view:
