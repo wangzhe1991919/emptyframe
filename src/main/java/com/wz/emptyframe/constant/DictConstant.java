@@ -14,15 +14,25 @@ public class DictConstant {
 
 
     //字段类型
+    //主键
     public static final int FIELD_PK = 0;
+    //用户名
     public static final int FIELD_USERNAME = 1;
+    //整数
     public static final int FIELD_INTEGER = 2;
+    //日期年月日时分秒
     public static final int FIELD_DATETIME = 3;
+    //日期年月日
     public static final int FIELD_DATE = 4;
+    //邮箱
     public static final int FIELD_EMAIL = 6;
+    //地址
     public static final int FIELD_ADDRESS = 7;
+    //手机号
     public static final int FIELD_MOBILE = 8;
+    //身份证号
     public static final int FIELD_IDCARD = 9;
+    //英文字符串
     public static final int FIELD_STRING_EN = 10;
 
     //java字符串所需日期格式
