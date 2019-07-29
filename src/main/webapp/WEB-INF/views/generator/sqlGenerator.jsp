@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="../common.jsp"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -164,7 +165,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost:8080/generator/genInsertSql',
+                url: window.parent.rootpath + '/generator/genInsertSql',
                 data : JSON.stringify(param),
                 contentType: "application/json;charset=utf-8",
                 dataType: 'json',

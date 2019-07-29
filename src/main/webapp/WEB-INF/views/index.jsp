@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="common.jsp"%>
 <html>
 <head>
     <meta charset="utf-8">
@@ -53,7 +54,7 @@
                         <a class="" href="javascript:;">生成器</a>
                         <dl class="layui-nav-child">
                             <%--<dd><a href="javascript:;" url="sqlGenerator">SQL生成器</a></dd>--%>
-                            <dd><a href="http://localhost:8080/sqlGenerator" target="mainIframe">SQL生成器</a></dd>
+                            <dd><a href="${rootpath}/sqlGenerator" target="mainIframe">SQL生成器</a></dd>
                         </dl>
                     </li>
                 </ul>
@@ -73,7 +74,7 @@
     <script src="../../static/layui/layui.js"></script>
     <script>
 
-
+        rootpath = "${rootPath}";
         //JavaScript代码区域
         layui.use(['element','layer'], function(){
             var $ = jQuery = layui.jquery;
