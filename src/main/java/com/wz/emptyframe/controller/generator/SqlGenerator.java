@@ -5,6 +5,7 @@ import com.wz.emptyframe.constant.DictConstant;
 import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.dto.generator.GeneratorField;
 import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
+import com.wz.emptyframe.util.common.BeanUtil;
 import com.wz.emptyframe.util.generator.IDCardGenerator;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -49,39 +50,38 @@ public class SqlGenerator {
             return WebDTO.faliure(NO_PARAM,null);
         }
         StringBuffer data = new StringBuffer();
+
         for (int i = 0; i < param.getCounts(); i++) {
-            data.append(genSql(param));
-            data.append("\r\n");
+            List<GeneratorField> fields =  BeanUtil.mapList(param.getFields(),GeneratorField.class);
+            data.append(genSql(fields,param.getDataBaseType(),param.getTableName()));
+            data.append("<br/>");
         }
         return WebDTO.success(data);
     }
 
     /**
      * 生成插入sql语句
-     * @param param
+     * @param fields
+     * @param databaseType
+     * @param tableName
      * @return
      */
-    private String genSql(GeneratorParamDTO param) {
+    private String genSql(List<GeneratorField> fields,int databaseType,String tableName) {
         //给每一个参数设置值
-        param.getFields().forEach(field -> {
-            //有默认值的取默认值，没有的随机生成
-            if (StringUtils.isEmpty(field.getValue())) {
-                field.setValue(genValueByTypeAndLength(field.getType(),field.getLength()));
-            }
-        });
+        fields.forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength(),field.getValue())));
 
-        String defaultSql = "INSERT INTO \"" + param.getTableName() + "\"";
+        String defaultSql = "INSERT INTO \"" + tableName + "\" ";
 
         //字段名 字符串拼接
         StringBuffer keyString = new StringBuffer("(");
         //值字符串拼接
         StringBuffer valueString = new StringBuffer("(");
-        param.getFields().forEach(field -> {
+        fields.forEach(field -> {
             //构建字段名字符串
             keyString.append("\"").append(field.getName()).append("\",");
 
             //构建不同类型数据库值字段
-            if (param.getDataBaseType() == DictConstant.DATATYPE_ORACLE) {
+            if (databaseType == DictConstant.DATATYPE_ORACLE) {
                 //oracle数据库，对应oracle日期函数
                 String dateFormatter = field.getType() == DictConstant.FIELD_DATETIME?DictConstant.ORACLE_DATETIME:field.getType() == DictConstant.FIELD_DATE?DictConstant.ORACLE_DATE:null;
                 if (dateFormatter != null) {
@@ -89,7 +89,8 @@ public class SqlGenerator {
                 } else {
                     valueString.append("'").append(field.getValue()).append("',");
                 }
-            } else if (param.getDataBaseType() == DictConstant.DATATYPE_MYSQL) {
+            } else if (databaseType == DictConstant.DATATYPE_MYSQL) {
+                //Mysql数据库
                 valueString.append("'").append(field.getValue()).append("',");
             }
         });
@@ -104,9 +105,13 @@ public class SqlGenerator {
      * 根据类型生成值
      * @param type
      * @param length
+     * @param defaultValue 默认值
      * @return
      */
-    private String genValueByTypeAndLength(int type,int length) {
+    private String genValueByTypeAndLength(int type,int length,String defaultValue) {
+        if (StringUtils.isNotEmpty(defaultValue)) {
+            return defaultValue;
+        }
         if (length == 0) {
             return null;
         }

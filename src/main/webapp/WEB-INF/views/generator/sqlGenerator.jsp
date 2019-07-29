@@ -33,11 +33,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">字段类型</label>
         <div class="layui-input-block">
-            <select id="dataBaseType" name="dataBaseType" lay-filter="typeFilter">
-                <option value="1" selected="">ORACLE</option>
-                <option value="2">SQLSERVER</option>
-                <option value="3">MYSQL</option>
-            </select>
+            <select id="dataBaseType" name="dataBaseType" lay-filter="typeFilter"></select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -64,18 +60,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">字段类型*</label>
             <div class="layui-input-block">
-                <select id="type" name="type" lay-filter="typeFilter">
-                    <option value="0">主键</option>
-                    <option value="1">用户名</option>
-                    <option value="2">整数</option>
-                    <option value="3">日期-年月日时分秒</option>
-                    <option value="4">日期-年月日</option>
-                    <option value="6">邮箱</option>
-                    <option value="7">地址</option>
-                    <option value="9">手机号</option>
-                    <option value="9">身份证号</option>
-                    <option value="10">英文字符串</option>
-                </select>
+                <select id="type" name="type" lay-filter="typeFilter"></select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -109,7 +94,6 @@
         var $ = layui.jquery
         var layer = layui.layer; //独立版的layer无需执行这一句
 
-
         var tableOption = {
             elem: '#genTable',
             toolbar: 'default',
@@ -117,8 +101,12 @@
             url: '', //数据接口
             page: false, //开启分页
             cols: [[ //表头
-                {field: 'name', title: '字段名',sort: true, fixed: 'left'},
-                {field: 'type', title: '字段类型'},
+                {field: 'name', title: '字段名',sort: true},
+                {field: 'type', title: '字段类型',
+                    templet : function(o) {
+                        return getSelectNameByValue(fieldType,o.type);
+                    }
+                },
                 {field: 'length', title: '长度'},
                 {field: 'value', title: '默认值'},
                 {field: 'toolbar', title: '操作', toolbar:'#operTool'}
@@ -155,6 +143,7 @@
             if(obj.event === 'del'){
                 layer.confirm('确定删除？', function(index){
                     obj.del();
+                    table.render();
                     layer.close(index);
                 });
             } else if(obj.event === 'edit'){
@@ -165,7 +154,13 @@
         //生成提交
         form.on('submit(genBtn)', function(data){
             var param = data.field;
-            param.fields = table.cache.genTable;
+            param.fields = [];
+            var tmp = table.cache.genTable;
+            for (var i = 0; i < tmp.length; i++) {
+                if (!Array.isArray(tmp[i])) {
+                    param.fields.push(tmp[i]);
+                }
+            }
 
             $.ajax({
                 type: 'POST',
@@ -174,18 +169,51 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: 'json',
                 success: function(o) {
-                    layer.alert(o.data, {
-                        title: '生成的数据'
-                    })
+                    layer.open({
+                        title: '生成的数据',
+                        area: ['800px', '400px'],
+                        offset: 't',
+                        type: 0,
+                        content: o.data
+                    });
                 }
             });
             return false;
         });
+
+
+
+        var databaseTypeSelect = [{"name":"Oracle","value":1},{"name":"SqlServer","value":2},{"name":"Mysql","value":3}];
+
+        for (var i = 0; i < databaseTypeSelect.length; i++) {
+            $("#dataBaseType").append("<option value=\"" + databaseTypeSelect[i].value + "\">" + databaseTypeSelect[i].name + "</option>");
+        }
+
+        var fieldType = [
+            {"name":"主键","value":0},{"name":"用户名","value":1},{"name":"整数","value":2},
+            {"name":"日期-年月日时分秒","value":3},{"name":"日期-年月日","value":4},{"name":"邮箱","value":6},
+            {"name":"地址","value":7},{"name":"手机号","value":8},{"name":"身份证号","value":9},
+            {"name":"英文字符串","value":10}
+        ];
+
+        for (var i = 0; i < fieldType.length; i++) {
+            $("#type").append("<option value=\"" + fieldType[i].value + "\">" + fieldType[i].name + "</option>");
+        }
+        form.render("select");
+
+
+        /**
+         * 值转换成文字
+         */
+        function getSelectNameByValue(fieldList,value) {
+            for (var i = 0; i < fieldList.length; i++) {
+                if (fieldList[i].value == value) {
+                    return fieldList[i].name;
+                }
+            }
+        }
+
     });
 </script>
-
 </body>
-
-
-
 </html>

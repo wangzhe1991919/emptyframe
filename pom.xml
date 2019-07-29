@@ -82,6 +82,18 @@
             <artifactId>quartz</artifactId>
             <version>1.8.4</version>
         </dependency>
+        <!--dozer映射-->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>17.0</version>
+            <scope>compile</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.shiro</groupId>
