@@ -17,6 +17,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <!-- maven打包跳过test -->
+        <skipTests>true</skipTests>
     </properties>
 
     <dependencies>
@@ -104,6 +106,7 @@
     </dependencies>
 
     <build>
+        <finalName>emptyframe</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
