@@ -1,12 +1,13 @@
 package com.wz.emptyframe.controller.generator;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wz.emptyframe.constant.DictConstant;
 import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.dto.generator.GeneratorField;
 import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
 import com.wz.emptyframe.util.generator.IDCardGenerator;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,8 @@ import java.util.UUID;
  * @time 2019/7/25
  * 自动生成Sql语句
  */
-@RestController("/generator")
+@RestController
+@RequestMapping("/generator")
 public class SqlGenerator {
 
     //百家姓
@@ -42,7 +44,7 @@ public class SqlGenerator {
      * @return
      */
     @RequestMapping("/genInsertSql")
-    public Object genInsertSql(GeneratorParamDTO param) {
+    public Object genInsertSql(@RequestBody GeneratorParamDTO param) {
         if (param == null) {
             return WebDTO.faliure(NO_PARAM,null);
         }
@@ -61,7 +63,12 @@ public class SqlGenerator {
      */
     private String genSql(GeneratorParamDTO param) {
         //给每一个参数设置值
-        param.getFields().forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength())));
+        param.getFields().forEach(field -> {
+            //有默认值的取默认值，没有的随机生成
+            if (StringUtils.isEmpty(field.getValue())) {
+                field.setValue(genValueByTypeAndLength(field.getType(),field.getLength()));
+            }
+        });
 
         String defaultSql = "INSERT INTO \"" + param.getTableName() + "\"";
 

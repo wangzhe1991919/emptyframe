@@ -59,17 +59,10 @@
                 </ul>
             </div>
         </div>
-
-
     </div>
 
         <div class="layui-body">
-            <iframe id="mainIframe" name="mainIframe" src=""></iframe>
-        </div>
-
-        <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
-            <ul class="layui-tab-title"></ul>
-            <div class="layui-tab-content"></div>
+            <iframe id="mainIframe" name="mainIframe" src="http://localhost:8080/sqlGenerator"></iframe>
         </div>
 
         <div class="layui-footer">
@@ -87,18 +80,13 @@
             var element = layui.element;
             //监听导航点击
             element.on('nav(left_menu)', function(elem){
-                //console.log(elem)
                 layer.msg(elem.text());
-                //activeTab.init(elem.test,elem.url,elem.id);
             });
-
-
             FrameWH();
 
             function FrameWH() {
                 var headerHeight = $(".layui-header").height();
                 var h = $(window).height() - headerHeight - 5;
-
                 $("#mainIframe").css({"height":h+"px","margin-top":headerHeight  + "px","width":"100%"});
             }
         });
