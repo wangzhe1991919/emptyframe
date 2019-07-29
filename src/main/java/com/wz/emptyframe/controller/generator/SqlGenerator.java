@@ -70,7 +70,12 @@ public class SqlGenerator {
         //给每一个参数设置值
         fields.forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength(),field.getValue())));
 
-        String defaultSql = "INSERT INTO \"" + tableName + "\" ";
+        //不同类型数据库有不同类型修饰符
+        String[] symbol = getSymbolByDatabaseType(databaseType);
+
+        System.out.println(symbol[0] + "=====" + symbol[1]);
+
+        String defaultSql = "INSERT INTO " + symbol[0] + tableName + symbol[1] + " ";
 
         //字段名 字符串拼接
         StringBuffer keyString = new StringBuffer("(");
@@ -78,7 +83,7 @@ public class SqlGenerator {
         StringBuffer valueString = new StringBuffer("(");
         fields.forEach(field -> {
             //构建字段名字符串
-            keyString.append("\"").append(field.getName()).append("\",");
+            keyString.append(symbol[0]).append(field.getName()).append(symbol[1]).append(",");
 
             //构建不同类型数据库值字段
             if (databaseType == DictConstant.DATATYPE_ORACLE) {
@@ -89,8 +94,8 @@ public class SqlGenerator {
                 } else {
                     valueString.append("'").append(field.getValue()).append("',");
                 }
-            } else if (databaseType == DictConstant.DATATYPE_MYSQL) {
-                //Mysql数据库
+            } else if (databaseType == DictConstant.DATATYPE_MYSQL || databaseType == DictConstant.DATATYPE_SQLSERVER) {
+                //Mysql数据库或Sqlserver数据库
                 valueString.append("'").append(field.getValue()).append("',");
             }
         });
@@ -130,6 +135,19 @@ public class SqlGenerator {
         }
     }
 
+    /**
+     * 根据数据库类型获取语句所用符号
+     * @param databaseType
+     * @return
+     */
+    private String[] getSymbolByDatabaseType(int databaseType) {
+        switch (databaseType) {
+            case DictConstant.DATATYPE_ORACLE : return "\",\"".split(",");
+            case DictConstant.DATATYPE_SQLSERVER : return "[,]".split(",");
+            case DictConstant.DATATYPE_MYSQL : return "`,`".split(",");
+            default:return "','".split(",");
+        }
+    }
 
     /**
      * 生成名字
@@ -252,78 +270,6 @@ public class SqlGenerator {
      * @param args
      */
     public static void main(String[] args) {
-        SqlGenerator sqlGenerator = new SqlGenerator();
-        /*for (int i=0;i<10;i++) {
-            System.out.println(sqlGenerator.genString(5));
-            System.out.println(sqlGenerator.genInteger(9));
-            System.out.println(sqlGenerator.genDateStr(3,DictConstant.DATE_YYYY_MM_DD_HH_MM_SS));
-            System.out.println(sqlGenerator.genAddress());
-            System.out.println(sqlGenerator.genMobile());
-            System.out.println(sqlGenerator.genUsername());
-        }*/
 
-        //INSERT INTO "PORTAL"."SYS_USER"("ID", "DEPT_ID", "LOGIN_NAME", "PASSWORD", "ID_CARD", "MOBILE", "EMAIL", "ADDRESS", "HEAD_ICON_PATH", "STATUS", "CREATE_DATE", "CREATE_BY", "UPDATE_DATE", "UPDATE_BY", "REMARKS", "DEL_FLAG", "SEX", "AGE", "BIRTHDAY", "NAME") VALUES ('4', '1', 'admin', 'admin', '2', '3', '4', '5', '3', '1', TO_TIMESTAMP('2019-07-25 16:48:35', 'SYYYY-MM-DD HH24:MI:SS'), '23', TO_TIMESTAMP('2019-07-11 16:48:41', 'SYYYY-MM-DD HH24:MI:SS'), '32', '12', '0', '2', '11', '21', '王五');
-
-
-        GeneratorParamDTO generatorParamDTO = new GeneratorParamDTO();
-
-        generatorParamDTO.setCounts(10);
-        generatorParamDTO.setTableName("SYS_USER");
-        generatorParamDTO.setDataBaseType(DictConstant.DATATYPE_ORACLE);
-
-        List<GeneratorField> tmpList = new ArrayList<GeneratorField>();
-
-        GeneratorField generatorField = new GeneratorField();
-        generatorField.setLength(1);
-        generatorField.setName("ID");
-        generatorField.setType(DictConstant.FIELD_PK);
-        tmpList.add(generatorField);
-
-        GeneratorField generatorField1 = new GeneratorField();
-        generatorField1.setLength(5);
-        generatorField1.setName("DEPT_ID");
-        generatorField1.setType(DictConstant.FIELD_INTEGER);
-        tmpList.add(generatorField1);
-
-        GeneratorField generatorField2 = new GeneratorField();
-        generatorField2.setLength(5);
-        generatorField2.setName("ID_CARD");
-        generatorField2.setType(DictConstant.FIELD_IDCARD);
-        tmpList.add(generatorField2);
-
-        GeneratorField generatorField3 = new GeneratorField();
-        generatorField3.setLength(5);
-        generatorField3.setName("MOBILE");
-        generatorField3.setType(DictConstant.FIELD_MOBILE);
-        tmpList.add(generatorField3);
-
-        GeneratorField generatorField4 = new GeneratorField();
-        generatorField4.setLength(5);
-        generatorField4.setName("EMAIL");
-        generatorField4.setType(DictConstant.FIELD_EMAIL);
-        tmpList.add(generatorField4);
-
-        GeneratorField generatorField5 = new GeneratorField();
-        generatorField5.setLength(5);
-        generatorField5.setName("ADDRESS");
-        generatorField5.setType(DictConstant.FIELD_ADDRESS);
-        tmpList.add(generatorField5);
-
-        GeneratorField generatorField6 = new GeneratorField();
-        generatorField6.setLength(5);
-        generatorField6.setName("CREATE_DATE");
-        generatorField6.setType(DictConstant.FIELD_DATETIME);
-        tmpList.add(generatorField6);
-
-        GeneratorField generatorField7 = new GeneratorField();
-        generatorField7.setLength(5);
-        generatorField7.setName("NAME");
-        generatorField7.setType(DictConstant.FIELD_USERNAME);
-        tmpList.add(generatorField7);
-
-        generatorParamDTO.setFields(tmpList);
-
-        WebDTO o = (WebDTO)sqlGenerator.genInsertSql(generatorParamDTO);
-        System.out.println(o.getData());
     }
 }

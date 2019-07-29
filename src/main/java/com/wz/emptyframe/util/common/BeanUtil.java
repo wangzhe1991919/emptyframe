@@ -5,7 +5,6 @@ package com.wz.emptyframe.util.common;
 
 
 import com.google.common.collect.Lists;
-import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
 import org.dozer.DozerBeanMapper;
 
 import java.util.Collection;
