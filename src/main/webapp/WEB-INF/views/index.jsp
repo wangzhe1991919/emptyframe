@@ -53,7 +53,6 @@
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">生成器</a>
                         <dl class="layui-nav-child">
-                            <%--<dd><a href="javascript:;" url="sqlGenerator">SQL生成器</a></dd>--%>
                             <dd><a href="${rootpath}/sqlGenerator" target="mainIframe">SQL生成器</a></dd>
                         </dl>
                     </li>
@@ -63,7 +62,7 @@
     </div>
 
         <div class="layui-body">
-            <iframe id="mainIframe" name="mainIframe" src="http://localhost:8080/sqlGenerator"></iframe>
+            <iframe id="mainIframe" name="mainIframe" src="${rootPath}/sqlGenerator"></iframe>
         </div>
 
         <div class="layui-footer">

@@ -12,10 +12,9 @@
     <artifactId>emptyframe</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>emptyframe</name>
-    <description>Empty Spring Boot Frame</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <!-- maven打包跳过test -->
         <skipTests>true</skipTests>
@@ -108,7 +107,6 @@
             <artifactId>shiro-core</artifactId>
             <version>1.4.0</version>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -117,6 +115,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.wz.emptyframe.EmptyframeApplication</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>

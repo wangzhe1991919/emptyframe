@@ -73,8 +73,6 @@ public class SqlGenerator {
         //不同类型数据库有不同类型修饰符
         String[] symbol = getSymbolByDatabaseType(databaseType);
 
-        System.out.println(symbol[0] + "=====" + symbol[1]);
-
         String defaultSql = "INSERT INTO " + symbol[0] + tableName + symbol[1] + " ";
 
         //字段名 字符串拼接
