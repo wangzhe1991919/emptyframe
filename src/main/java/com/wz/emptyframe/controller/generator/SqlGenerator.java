@@ -7,6 +7,8 @@ import com.wz.emptyframe.dto.generator.GeneratorField;
 import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
 import com.wz.emptyframe.util.common.BeanUtil;
 import com.wz.emptyframe.util.generator.IDCardGenerator;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/generator")
+@Api(description = "Sql生成器")
 public class SqlGenerator {
 
     //百家姓
@@ -45,6 +48,7 @@ public class SqlGenerator {
      * @return
      */
     @RequestMapping("/genInsertSql")
+    @ApiOperation(value = "生成插入Sql语句")
     public Object genInsertSql(@RequestBody GeneratorParamDTO param) {
         if (param == null) {
             return WebDTO.faliure(NO_PARAM,null);
