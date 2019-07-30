@@ -1,21 +1,32 @@
 package com.wz.emptyframe.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @author ta0546 wz
  * @time 2018/12/7
  */
-@Data
+@TableName("sys_user")
 public class User {
 
     private String id;
+
+    private String loginId;
+
+    private String password;
 
     private String name;
 
     private Integer age;
 
     private String email;
+
+    private String phone;
+
+    private Date CreateDate;
 
     public String getId() {
         return id;
@@ -47,5 +58,37 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getCreateDate() {
+        return CreateDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        CreateDate = createDate;
     }
 }

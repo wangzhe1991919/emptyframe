@@ -1,32 +1,18 @@
-package com.wz.emptyframe.controller.generator;
+package com.wz.emptyframe.util.generator;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wz.emptyframe.constant.DictConstant;
-import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.dto.generator.GeneratorField;
-import com.wz.emptyframe.dto.generator.GeneratorParamDTO;
-import com.wz.emptyframe.util.common.BeanUtil;
-import com.wz.emptyframe.util.generator.IDCardGenerator;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 /**
- * @author ta0546 wz
- * @time 2019/7/25
- * 自动生成Sql语句
+ * 生成Sql语句工具类
  */
-@RestController
-@RequestMapping("/generator")
-@Api(description = "Sql生成器")
 public class SqlGenerator {
 
     //百家姓
@@ -41,27 +27,6 @@ public class SqlGenerator {
 
     private static final String[] email_suffix = "@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn".split(",");
 
-    private static final String NO_PARAM = "参数不正确！";
-
-    /**
-     * 生成插入语句
-     * @return
-     */
-    @RequestMapping("/genInsertSql")
-    @ApiOperation(value = "生成插入Sql语句")
-    public Object genInsertSql(@RequestBody GeneratorParamDTO param) {
-        if (param == null) {
-            return WebDTO.faliure(NO_PARAM,null);
-        }
-        StringBuffer data = new StringBuffer();
-
-        for (int i = 0; i < param.getCounts(); i++) {
-            List<GeneratorField> fields =  BeanUtil.mapList(param.getFields(),GeneratorField.class);
-            data.append(genSql(fields,param.getDataBaseType(),param.getTableName()));
-            data.append("<br/>");
-        }
-        return WebDTO.success(data);
-    }
 
     /**
      * 生成插入sql语句
@@ -70,7 +35,7 @@ public class SqlGenerator {
      * @param tableName
      * @return
      */
-    private String genSql(List<GeneratorField> fields,int databaseType,String tableName) {
+    public static String genSql(List<GeneratorField> fields, int databaseType, String tableName) {
         //给每一个参数设置值
         fields.forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength(),field.getValue())));
 
@@ -115,7 +80,7 @@ public class SqlGenerator {
      * @param defaultValue 默认值
      * @return
      */
-    private String genValueByTypeAndLength(int type,int length,String defaultValue) {
+    private static String genValueByTypeAndLength(int type,int length,String defaultValue) {
         if (StringUtils.isNotEmpty(defaultValue)) {
             return defaultValue;
         }
@@ -142,7 +107,7 @@ public class SqlGenerator {
      * @param databaseType
      * @return
      */
-    private String[] getSymbolByDatabaseType(int databaseType) {
+    private static String[] getSymbolByDatabaseType(int databaseType) {
         switch (databaseType) {
             case DictConstant.DATATYPE_ORACLE : return "\",\"".split(",");
             case DictConstant.DATATYPE_SQLSERVER : return "[,]".split(",");
@@ -155,7 +120,7 @@ public class SqlGenerator {
      * 生成名字
      * @return
      */
-    private String genUsername() {
+    private static String genUsername() {
         int index = getNum(0, surname.length() - 1);
         String first = surname.substring(index, index + 1);
         String str = boyName;
@@ -177,7 +142,7 @@ public class SqlGenerator {
      * 生成手机号码
      * @return
      */
-    private String genMobile() {
+    private static String genMobile() {
         int index = getNum(0,telFirst.length-1);
         String first = telFirst[index];
         String second = genInteger(8);
@@ -189,10 +154,10 @@ public class SqlGenerator {
      * 生成地址
      * @return
      */
-    private String genAddress() {
+    private static String genAddress() {
         String first = city[getNum(0,city.length-1)];
         String second=road[getNum(0,road.length-1)];
-        String third=String.valueOf(getNum(11,150))+"号";
+        String third=getNum(11,150)+"号";
         String fourth="-"+getNum(1,20)+"-"+getNum(1,10);
         return first + second + third + fourth;
     }
@@ -203,7 +168,7 @@ public class SqlGenerator {
      * @param length
      * @return
      */
-    private String genInteger(int length) {
+    private static String genInteger(int length) {
         String v = "";
         Random random = new Random();
         for (int i = 0; i < length; i++) {
@@ -219,7 +184,7 @@ public class SqlGenerator {
      * @param length
      * @return
      */
-    private String genString(int length) {
+    private static String genString(int length) {
         String v = "";
         Random random = new Random();
         for (int i = 0; i < length; i++) {
@@ -234,7 +199,7 @@ public class SqlGenerator {
      * @param length
      * @return
      */
-    private String genDateStr(int length,String datePattern) {
+    private static String genDateStr(int length,String datePattern) {
         if (datePattern == null) {
             datePattern = "yyyy-MM-dd";
         }

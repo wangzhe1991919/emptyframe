@@ -73,12 +73,12 @@ public class WebDTO {
 	
 	/**
 	 * 返回（状态自定义）
-	 * @param b
+	 * @param code
 	 * @param data
 	 * @return
 	 */
-	public static Object response(int b,String message,String data) {
-	    return new WebDTO(b,"",data);
+	public static Object response(int code,String message,String data) {
+	    return new WebDTO(code,"",data);
 	}
 	
 	/**
