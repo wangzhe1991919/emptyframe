@@ -1,4 +1,4 @@
-package com.wz.emptyframe.entity;
+package com.wz.emptyframe.entity.system;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;

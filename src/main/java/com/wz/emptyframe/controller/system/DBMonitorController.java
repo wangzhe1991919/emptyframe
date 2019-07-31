@@ -2,7 +2,7 @@ package com.wz.emptyframe.controller.system;
 
 import com.wz.emptyframe.dbmonitor.*;
 import com.wz.emptyframe.query.system.UserQuery;
-import com.wz.emptyframe.serivce.UserService;
+import com.wz.emptyframe.serivce.system.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

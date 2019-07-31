@@ -1,7 +1,6 @@
-package com.wz.emptyframe.serivce;
+package com.wz.emptyframe.serivce.system;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.wz.emptyframe.entity.User;
+import com.wz.emptyframe.entity.system.User;
 import com.wz.emptyframe.serivce.base.IBaseService;
 
 /**

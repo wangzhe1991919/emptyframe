@@ -78,7 +78,7 @@ public class WebDTO {
 	 * @return
 	 */
 	public static Object response(int code,String message,String data) {
-	    return new WebDTO(code,"",data);
+	    return new WebDTO(code,message,data);
 	}
 	
 	/**

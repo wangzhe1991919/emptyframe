@@ -2,7 +2,7 @@ package com.wz.emptyframe.controller.system;
 
 import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.query.system.UserQuery;
-import com.wz.emptyframe.serivce.UserService;
+import com.wz.emptyframe.serivce.system.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

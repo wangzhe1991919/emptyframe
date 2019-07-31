@@ -1,9 +1,9 @@
-package com.wz.emptyframe.serivce.impl;
+package com.wz.emptyframe.serivce.system.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.wz.emptyframe.dao.UserDao;
-import com.wz.emptyframe.entity.User;
-import com.wz.emptyframe.serivce.UserService;
+import com.wz.emptyframe.dao.system.UserDao;
+import com.wz.emptyframe.entity.system.User;
+import com.wz.emptyframe.serivce.system.UserService;
 import org.springframework.stereotype.Service;
 
 @Service
