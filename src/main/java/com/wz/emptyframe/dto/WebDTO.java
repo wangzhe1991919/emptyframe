@@ -60,17 +60,9 @@ public class WebDTO {
 	 * @return
 	 */
 	public static Object success() {
-        return WebDTO.success(MsgConstant.SUCCESS);
+        return WebDTO.success(null);
     }
-	/**
-	 * 失败提示
-	 * @param data 数据
-	 * @return
-	 */
-	public static Object faliure(Object data) {
-		return WebDTO.faliure(MsgConstant.FAIL,data);
-	};
-	
+
 	/**
 	 * 返回（状态自定义）
 	 * @param code

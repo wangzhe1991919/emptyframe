@@ -34,4 +34,12 @@ public class GenData {
     public void setContent(String content) {
         this.content = content;
     }
+
+    public GenData(String id,int genTypeId,String content) {
+        this.id = id;
+        this.genTypeId = genTypeId;
+        this.content = content;
+    }
+
+    public GenData(){}
 }
