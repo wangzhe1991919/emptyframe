@@ -57,4 +57,17 @@ public class GeneratorManagerController {
         return WebDTO.success();
     }
 
+
+
+    @PostMapping("/getGenTypeList")
+    @ApiOperation(value = "获取类型列表")
+    public Object getGenTypeList() {
+        return WebDTO.success(genTypeService.list());
+    }
+
+    @PostMapping("/getGenDataList")
+    @ApiOperation(value = "获取数据列表")
+    public Object getGenDataList() {
+        return WebDTO.success(genDataService.list());
+    }
 }
