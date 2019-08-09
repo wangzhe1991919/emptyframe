@@ -7,8 +7,10 @@ import com.wz.emptyframe.serivce.generator.GenDataService;
 import com.wz.emptyframe.util.common.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class GenDataServiceImpl extends ServiceImpl<GenDataDao, GenData> implements GenDataService {
 
     @Autowired
