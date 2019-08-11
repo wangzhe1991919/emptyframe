@@ -39,8 +39,7 @@ public class GeneratorManagerController {
         //查看是否名称重复
         long count = genTypeList.stream().filter(o -> o.getName().equals(genType.getName())).count();
         //获取当前ID最大值
-        //IntSummaryStatistics ids = genTypeList.stream().mapToInt((x) -> x.getId()).summaryStatistics();
-        if (count > 0) {
+        if (genType == null || count > 0) {
             return WebDTO.response(500,"类型名重复",null);
         }
         genTypeService.save(genType);
@@ -56,8 +55,6 @@ public class GeneratorManagerController {
         genDataService.saveMoreContents(genData);
         return WebDTO.success();
     }
-
-
 
     @PostMapping("/getGenTypeList")
     @ApiOperation(value = "获取类型列表")
