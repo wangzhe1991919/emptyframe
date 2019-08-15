@@ -10,10 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -66,5 +63,11 @@ public class GeneratorManagerController {
     @ApiOperation(value = "获取数据列表")
     public Object getGenDataList() {
         return WebDTO.success(genDataService.list());
+    }
+
+    @DeleteMapping("/deleteGenType")
+    @ApiOperation("删除需要生成数据的数据类型")
+    public Object deleteGenType(String id) {
+        return WebDTO.success(genTypeService.removeById(id));
     }
 }
