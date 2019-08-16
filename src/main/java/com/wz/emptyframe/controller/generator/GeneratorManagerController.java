@@ -2,6 +2,7 @@ package com.wz.emptyframe.controller.generator;
 
 
 import com.wz.emptyframe.dto.WebDTO;
+import com.wz.emptyframe.dto.generator.GeneratorDataQuery;
 import com.wz.emptyframe.entity.generator.GenData;
 import com.wz.emptyframe.entity.generator.GenType;
 import com.wz.emptyframe.serivce.generator.GenDataService;
@@ -61,8 +62,8 @@ public class GeneratorManagerController {
 
     @PostMapping("/getGenDataList")
     @ApiOperation(value = "获取数据列表")
-    public Object getGenDataList() {
-        return WebDTO.success(genDataService.list());
+    public Object getGenDataList(GeneratorDataQuery param) {
+        return WebDTO.success(genDataService.listByParam(param));
     }
 
     @DeleteMapping("/deleteGenType")
