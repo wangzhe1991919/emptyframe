@@ -21,13 +21,10 @@ public class GenDataServiceImpl extends ServiceImpl<GenDataDao, GenData> impleme
     @Autowired
     private GenDataDao genDataDao;
 
-    //content切割符
-    private static final String SPLIT_SYMBOL = "%";
-
     @Override
     public void saveMoreContents(GenData genData) {
-        if (genData.getContent().contains(SPLIT_SYMBOL)) {
-            String[] s = genData.getContent().split(SPLIT_SYMBOL);
+        if (genData.getContent().contains(genData.getSplit())) {
+            String[] s = genData.getContent().split(genData.getSplit());
             for (String content : s) {
                 if (StringUtil.isNotEmpty(content)) {
                     GenData o = new GenData(StringUtil.getUUID(),genData.getGenTypeId(),content);
