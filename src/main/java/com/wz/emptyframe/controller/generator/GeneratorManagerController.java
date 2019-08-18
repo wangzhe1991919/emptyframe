@@ -46,11 +46,11 @@ public class GeneratorManagerController {
 
     @PostMapping("/insertGenData")
     @ApiOperation(value = "添加要生成的数据")
-    public Object insertGenData(@RequestBody GenData genData) {
-        if (genData.getContent() == null || genData.getGenTypeId() == 0|| genData.getSplit() == null) {
+    public Object insertGenData(int genTypeId,String content,String split) {
+        if (content == null || genTypeId == 0|| split == null) {
             return WebDTO.response(500,"参数错误或不完整",null);
         }
-        genDataService.saveMoreContents(genData);
+        genDataService.saveMoreContents(genTypeId,content,split);
         return WebDTO.success();
     }
 

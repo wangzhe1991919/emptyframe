@@ -10,9 +10,11 @@ public interface GenDataService extends IBaseService<GenData> {
 
     /**
      * 生成多条数据
-     * @param genData
+     * @param genTypeId
+     * @param content
+     * @param split
      */
-    void saveMoreContents(GenData genData);
+    void saveMoreContents(int genTypeId,String content,String split);
 
     /**
      * 根据条件查询
