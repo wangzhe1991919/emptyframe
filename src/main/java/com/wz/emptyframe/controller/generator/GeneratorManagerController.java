@@ -71,4 +71,10 @@ public class GeneratorManagerController {
     public Object deleteGenType(String id) {
         return WebDTO.success(genTypeService.removeById(id));
     }
+
+    @DeleteMapping("/deleteGenData")
+    @ApiOperation("删除数据")
+    public Object deleteGenData(@RequestParam(value="ids[]")List<String> ids) {
+        return WebDTO.success(genDataService.removeByIds(ids));
+    }
 }
