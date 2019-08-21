@@ -3,6 +3,7 @@ package com.wz.emptyframe.util.generator;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wz.emptyframe.constant.DictConstant;
 import com.wz.emptyframe.dto.generator.GeneratorField;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 /**
  * 生成Sql语句工具类
  */
+@Component
 public class SqlGenerator {
 
     //百家姓
@@ -35,7 +37,7 @@ public class SqlGenerator {
      * @param tableName
      * @return
      */
-    public static String genSql(List<GeneratorField> fields, int databaseType, String tableName) {
+    public String genSql(List<GeneratorField> fields, int databaseType, String tableName) {
         //给每一个参数设置值
         fields.forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength(),field.getValue())));
 
@@ -80,7 +82,7 @@ public class SqlGenerator {
      * @param defaultValue 默认值
      * @return
      */
-    private static String genValueByTypeAndLength(int type,int length,String defaultValue) {
+    private String genValueByTypeAndLength(int type,int length,String defaultValue) {
         if (StringUtils.isNotEmpty(defaultValue)) {
             return defaultValue;
         }

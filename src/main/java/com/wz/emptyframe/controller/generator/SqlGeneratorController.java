@@ -7,6 +7,7 @@ import com.wz.emptyframe.util.common.BeanUtil;
 import com.wz.emptyframe.util.generator.SqlGenerator;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class SqlGeneratorController {
 
     private static final String NO_PARAM = "参数不正确！";
 
+    @Autowired
+    private SqlGenerator sqlGenerator;
+
     /**
      * 生成插入语句
      * @return
@@ -37,7 +41,7 @@ public class SqlGeneratorController {
 
         for (int i = 0; i < param.getCounts(); i++) {
             List<GeneratorField> fields =  BeanUtil.mapList(param.getFields(),GeneratorField.class);
-            data.append(SqlGenerator.genSql(fields,param.getDataBaseType(),param.getTableName()));
+            data.append(sqlGenerator.genSql(fields,param.getDataBaseType(),param.getTableName()));
             data.append("<br/>");
         }
         return WebDTO.success(data);
