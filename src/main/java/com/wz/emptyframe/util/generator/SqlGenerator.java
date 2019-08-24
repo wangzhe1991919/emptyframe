@@ -2,7 +2,14 @@ package com.wz.emptyframe.util.generator;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wz.emptyframe.constant.DictConstant;
+import com.wz.emptyframe.dto.generator.GeneratorDataQuery;
 import com.wz.emptyframe.dto.generator.GeneratorField;
+import com.wz.emptyframe.entity.generator.GenData;
+import com.wz.emptyframe.entity.generator.GenType;
+import com.wz.emptyframe.serivce.generator.GenDataService;
+import com.wz.emptyframe.serivce.generator.GenTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -29,6 +36,14 @@ public class SqlGenerator {
 
     private static final String[] email_suffix = "@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn".split(",");
 
+
+    @Autowired
+    @Qualifier("genTypeServiceImpl")
+    private GenTypeService genTypeService;
+
+    @Autowired
+    @Qualifier("genDataServiceImpl")
+    private GenDataService genDataService;
 
     /**
      * 生成插入sql语句
@@ -89,6 +104,21 @@ public class SqlGenerator {
         if (length == 0) {
             return null;
         }
+
+        //TODO
+        //首先查询类型是否是数据库中的类型
+        List<GenType> list = genTypeService.list();
+        GenType genType = list.stream().filter(o -> o.getId() == type).findFirst().get();
+        if (genType != null) {
+            //查询出该类型的所有数据，随机选取一个
+            GeneratorDataQuery query = new GeneratorDataQuery();
+            query.setGenTypeId(String.valueOf(genType.getId()));
+            List<GenData> dataList = genDataService.listByParam(query);
+            int random = getNum(0, dataList.size() - 1);
+            return dataList.get(random).getContent();
+        }
+
+
         switch (type) {
             case DictConstant.FIELD_PK : return UUID.randomUUID().toString().replaceAll("-", "");
             case DictConstant.FIELD_STRING_EN : return genString(length);
