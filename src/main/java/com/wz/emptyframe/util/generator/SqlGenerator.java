@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -36,14 +37,11 @@ public class SqlGenerator {
 
     private static final String[] email_suffix = "@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn".split(",");
 
-
-    @Autowired
-    @Qualifier("genTypeServiceImpl")
-    private GenTypeService genTypeService;
-
     @Autowired
     @Qualifier("genDataServiceImpl")
     private GenDataService genDataService;
+
+    private List<GenData> dataList;
 
     /**
      * 生成插入sql语句
@@ -53,6 +51,8 @@ public class SqlGenerator {
      * @return
      */
     public String genSql(List<GeneratorField> fields, int databaseType, String tableName) {
+        //加载所有数据
+        dataList = genDataService.list();
         //给每一个参数设置值
         fields.forEach(field -> field.setValue(genValueByTypeAndLength(field.getType(),field.getLength(),field.getValue())));
 
@@ -105,19 +105,17 @@ public class SqlGenerator {
             return null;
         }
 
-        //TODO
-        //首先查询类型是否是数据库中的类型
-        List<GenType> list = genTypeService.list();
-        GenType genType = list.stream().filter(o -> o.getId() == type).findFirst().get();
-        if (genType != null) {
-            //查询出该类型的所有数据，随机选取一个
-            GeneratorDataQuery query = new GeneratorDataQuery();
-            query.setGenTypeId(String.valueOf(genType.getId()));
-            List<GenData> dataList = genDataService.listByParam(query);
-            int random = getNum(0, dataList.size() - 1);
-            return dataList.get(random).getContent();
+        //设置相同类型的数据
+        List<GenData> currTypeList = new ArrayList<>();
+        this.dataList.forEach(o -> {
+            if (o.getGenTypeId() == type) {
+                currTypeList.add(o);
+            }
+        });
+        if (currTypeList.size() > 0) {
+            int random = getNum(0, currTypeList.size() - 1);
+            return currTypeList.get(random).getContent();
         }
-
 
         switch (type) {
             case DictConstant.FIELD_PK : return UUID.randomUUID().toString().replaceAll("-", "");
