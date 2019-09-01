@@ -10,4 +10,5 @@ import com.wz.emptyframe.serivce.base.IBaseService;
 public interface UserService extends IBaseService<User> {
 
 
+    User findByLoginName(String username);
 }
