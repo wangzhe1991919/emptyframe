@@ -7,6 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,15 @@ public class UserController {
     @Autowired
     @Qualifier("userServiceImpl")
     private UserService userService;
+
+
+    @PostMapping("/login")
+    @ApiOperation(value = "登录")
+    public Object login(String username, String password) {
+        System.out.println(username + "====" + password);
+        Object data = userService.list();
+        return WebDTO.success(data);
+    }
 
 
     @RequestMapping(value = "/getUserList",method = {RequestMethod.POST, RequestMethod.GET})

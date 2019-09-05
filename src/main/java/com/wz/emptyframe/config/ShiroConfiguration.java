@@ -77,7 +77,7 @@ public class ShiroConfiguration{
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        factoryBean.setLoginUrl("http://49.234.216.89");
+        factoryBean.setLoginUrl("http://localhost:8080/login.html");
         // 登录成功后要跳转的连接
         factoryBean.setSuccessUrl("/welcome");
         factoryBean.setUnauthorizedUrl("/403");
