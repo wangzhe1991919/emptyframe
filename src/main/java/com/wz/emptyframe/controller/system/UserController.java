@@ -5,6 +5,9 @@ import com.wz.emptyframe.query.system.UserQuery;
 import com.wz.emptyframe.serivce.system.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +33,26 @@ public class UserController {
     @PostMapping("/login")
     @ApiOperation(value = "登录")
     public Object login(String username, String password) {
-        System.out.println(username + "====" + password);
-        Object data = userService.list();
-        return WebDTO.success(data);
+        String errMsg = null;
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        Subject currentUser = SecurityUtils.getSubject();
+        try {
+            currentUser.login(token);
+        } catch (UnknownAccountException uae) {
+            errMsg = "用户名和密码不匹配";
+        } catch (IncorrectCredentialsException ice) {
+            errMsg = "用户名和密码不匹配";
+        } catch (LockedAccountException lae) {
+            errMsg = "LockedAccountException";
+        } catch (ExcessiveAttemptsException eae) {
+            errMsg = "ExcessiveAttemptsException";
+        } catch (AuthenticationException ae) {
+            errMsg = "AuthenticationException";
+        }
+        if (errMsg == null) {
+            return WebDTO.success();
+        }
+        return WebDTO.faliure(errMsg,null);
     }
 
 
