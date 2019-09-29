@@ -7,8 +7,12 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
@@ -23,7 +27,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableTransactionManagement
-public class ShiroConfiguration{
+public class ShiroConfiguration implements EnvironmentAware {
 
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class);
 
@@ -38,6 +42,12 @@ public class ShiroConfiguration{
      3、部分过滤器可指定参数，如perms，roles
      *
      */
+    private Environment environment;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean(name = "myShiroRealm")
     public MyShiroRealm myShiroRealm(){
@@ -77,9 +87,9 @@ public class ShiroConfiguration{
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        factoryBean.setLoginUrl("http://localhost:8080/login.html");
+        factoryBean.setLoginUrl(environment.getProperty("shiro.loginUrl"));
         // 登录成功后要跳转的连接
-        factoryBean.setSuccessUrl("/welcome");
+        factoryBean.setSuccessUrl(environment.getProperty("shiro.successUrl"));
         factoryBean.setUnauthorizedUrl("/403");
         loadShiroFilterChain(factoryBean);
         logger.info("shiro拦截器工厂类注入成功");
@@ -96,7 +106,7 @@ public class ShiroConfiguration{
          * org.apache.shiro.web.filter.authc.FormAuthenticationFilter */
         // anon：它对应的过滤器里面是空的,什么都没做,可以理解为不拦截
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
-        filterChainMap.put("/permission/userInsert", "anon");
+        filterChainMap.put("/sys/login", "anon");
         filterChainMap.put("/error", "anon");
         filterChainMap.put("/**", "authc");
 
