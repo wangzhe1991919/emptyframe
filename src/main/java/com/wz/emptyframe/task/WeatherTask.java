@@ -21,8 +21,8 @@ public class WeatherTask {
 
     @Scheduled(cron = "0/30 * * * * ? ")
     public void getWeather() {
-        weatherUtil.getWeather();
-        System.out.println(Thread.currentThread().getName()+"=====>>>>>使用cron  {}"+(System.currentTimeMillis()/1000));
+        String weather = weatherUtil.getWeather();
+        System.out.println(weather);
     }
 
 }
