@@ -22,3 +22,13 @@ shiro:
   loginUrl: http://49.234.216.89/login.html
   #shiro登录成功后跳转的首页
   successUrl: http://49.234.216.89/index.html
+
+#和风天气的url和key
+weather:
+  url: https://free-api.heweather.net/s6/weather/
+  key: 615a608b5bd64cc7a00f972a8ae33d05
+  #默认查询天津市宁河区的天气
+  defaultLocation: ninghe,tianjin
+  #now 实况天气，forecast 3天天气预报，hourly逐小时预报，lifestyle生活指数
+  weatherType: now
+  lifestyle: lifestyle
