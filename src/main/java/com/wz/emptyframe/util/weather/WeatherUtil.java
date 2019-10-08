@@ -82,7 +82,7 @@ public class WeatherUtil {
         String msg = "白天：" + map.get("cond_txt_d") + ",夜间：" + map.get("cond_txt_n")
                 + ",气温：" + map.get("tmp_min") + "-" + map.get("tmp_max") + "℃,"
                 + map.get("wind_dir") + map.get("wind_sc") + "级,"
-                + "相对湿度" + map.get("hum") + "%";
+                + "相对湿度" + map.get("hum") + "% 。";
         return msg;
     }
 
