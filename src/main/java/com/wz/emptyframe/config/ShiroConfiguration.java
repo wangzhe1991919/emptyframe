@@ -118,7 +118,8 @@ public class ShiroConfiguration implements EnvironmentAware {
         filterChainMap.put("/superzigApi/**", "anon");
         filterChainMap.put("/global/sessionError", "anon");
         filterChainMap.put("/kaptcha", "anon");
-        filterChainMap.put("/**", "authc");
+        //暂时什么都不屏蔽
+        filterChainMap.put("/**", "anon");
 
         factoryBean.setFilterChainDefinitionMap(filterChainMap);
     }
