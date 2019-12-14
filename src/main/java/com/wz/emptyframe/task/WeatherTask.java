@@ -19,10 +19,10 @@ public class WeatherTask {
     @Autowired
     private WeatherUtil weatherUtil;
 
-    @Scheduled(cron = "0/30 * * * * ? ")
+    /*@Scheduled(cron = "0/30 * * * * ? ")
     public void getWeather() {
         String weather = weatherUtil.getWeather();
         System.out.println(weather);
-    }
+    }*/
 
 }
