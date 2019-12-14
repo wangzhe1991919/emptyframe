@@ -17,11 +17,6 @@ spring:
   http:
     encoding:
       enabled: false
-shiro:
-  #shiro拦截后跳转的登录页
-  loginUrl: http://49.234.216.89/login.html
-  #shiro登录成功后跳转的首页
-  successUrl: http://49.234.216.89/index.html
 
 #和风天气的url和key
 weather:
