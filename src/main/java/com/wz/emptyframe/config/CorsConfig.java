@@ -15,11 +15,11 @@ public class CorsConfig {
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 允许任何域名使用
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
         // 允许任何头
-        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedHeader(CorsConfiguration.ALL);
         // 允许任何方法（post、get等）
-        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedMethod(CorsConfiguration.ALL);
         return corsConfiguration;
     }
 

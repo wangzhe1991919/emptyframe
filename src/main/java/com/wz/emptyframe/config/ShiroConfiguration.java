@@ -7,15 +7,14 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
+import javax.servlet.Filter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -42,7 +41,7 @@ public class ShiroConfiguration implements EnvironmentAware {
      3、部分过滤器可指定参数，如perms，roles
      *
      */
-    private Environment environment;
+    public Environment environment;
 
     @Override
     public void setEnvironment(Environment environment) {
@@ -87,10 +86,10 @@ public class ShiroConfiguration implements EnvironmentAware {
         ShiroFilterFactoryBean factoryBean = new ShiroFilterFactoryBean();
         factoryBean.setSecurityManager(securityManager);
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
-        factoryBean.setLoginUrl(environment.getProperty("shiro.loginUrl"));
+        /*factoryBean.setLoginUrl(environment.getProperty("shiro.loginUrl"));
         // 登录成功后要跳转的连接
         factoryBean.setSuccessUrl(environment.getProperty("shiro.successUrl"));
-        factoryBean.setUnauthorizedUrl("/403");
+        factoryBean.setUnauthorizedUrl("/403");*/
         loadShiroFilterChain(factoryBean);
         logger.info("shiro拦截器工厂类注入成功");
         return factoryBean;
@@ -108,7 +107,10 @@ public class ShiroConfiguration implements EnvironmentAware {
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainMap.put("/sys/login", "anon");
         filterChainMap.put("/**", "authc");
-
+        //使用自定义的filter
+        LinkedHashMap<String, Filter> filtsMap = new LinkedHashMap<>();
+        filtsMap.put("authc",new MyShiroFormAuthenticationFilter());
+        factoryBean.setFilters(filtsMap);
         //不过滤swagger-ui
         /*filterChainMap.put("/swagger-ui.html", "anon");
         filterChainMap.put("/webjars/**", "anon");
