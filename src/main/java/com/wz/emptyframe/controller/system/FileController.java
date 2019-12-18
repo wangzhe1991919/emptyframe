@@ -2,9 +2,7 @@ package com.wz.emptyframe.controller.system;
 
 import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.entity.system.FileInfo;
-import com.wz.emptyframe.serivce.system.FileService;
-import com.wz.emptyframe.serivce.system.UserService;
-import com.wz.emptyframe.util.file.SftpUtils;
+import com.wz.emptyframe.service.system.FileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

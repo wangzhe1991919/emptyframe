@@ -1,7 +1,7 @@
 package com.wz.emptyframe.config;
 
 import com.wz.emptyframe.entity.system.User;
-import com.wz.emptyframe.serivce.system.UserService;
+import com.wz.emptyframe.service.system.UserService;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

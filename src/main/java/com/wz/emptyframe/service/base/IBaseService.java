@@ -1,4 +1,4 @@
-package com.wz.emptyframe.serivce.base;
+package com.wz.emptyframe.service.base;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 

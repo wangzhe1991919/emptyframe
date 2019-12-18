@@ -3,10 +3,9 @@ package com.wz.emptyframe.controller.generator;
 
 import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.dto.generator.GeneratorDataQuery;
-import com.wz.emptyframe.entity.generator.GenData;
 import com.wz.emptyframe.entity.generator.GenType;
-import com.wz.emptyframe.serivce.generator.GenDataService;
-import com.wz.emptyframe.serivce.generator.GenTypeService;
+import com.wz.emptyframe.service.generator.GenDataService;
+import com.wz.emptyframe.service.generator.GenTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

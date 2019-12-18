@@ -1,8 +1,8 @@
-package com.wz.emptyframe.serivce.generator;
+package com.wz.emptyframe.service.generator;
 
 import com.wz.emptyframe.dto.generator.GeneratorDataQuery;
 import com.wz.emptyframe.entity.generator.GenData;
-import com.wz.emptyframe.serivce.base.IBaseService;
+import com.wz.emptyframe.service.base.IBaseService;
 
 import java.util.List;
 

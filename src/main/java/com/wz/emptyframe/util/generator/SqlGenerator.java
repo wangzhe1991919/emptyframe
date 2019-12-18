@@ -2,12 +2,9 @@ package com.wz.emptyframe.util.generator;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wz.emptyframe.constant.DictConstant;
-import com.wz.emptyframe.dto.generator.GeneratorDataQuery;
 import com.wz.emptyframe.dto.generator.GeneratorField;
 import com.wz.emptyframe.entity.generator.GenData;
-import com.wz.emptyframe.entity.generator.GenType;
-import com.wz.emptyframe.serivce.generator.GenDataService;
-import com.wz.emptyframe.serivce.generator.GenTypeService;
+import com.wz.emptyframe.service.generator.GenDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;

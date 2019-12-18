@@ -1,10 +1,10 @@
-package com.wz.emptyframe.serivce.system.impl;
+package com.wz.emptyframe.service.system.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wz.emptyframe.dao.system.UserDao;
 import com.wz.emptyframe.entity.system.User;
-import com.wz.emptyframe.serivce.system.UserService;
+import com.wz.emptyframe.service.system.UserService;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,17 +1,15 @@
-package com.wz.emptyframe.serivce.system.impl;
+package com.wz.emptyframe.service.system.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wz.emptyframe.dao.system.FileDao;
 import com.wz.emptyframe.entity.system.FileInfo;
-import com.wz.emptyframe.serivce.system.FileService;
-import com.wz.emptyframe.util.common.UUIDUtils;
+import com.wz.emptyframe.service.system.FileService;
 import com.wz.emptyframe.util.file.SftpUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author wangzhe

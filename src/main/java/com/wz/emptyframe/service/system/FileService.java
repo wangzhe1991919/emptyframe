@@ -1,8 +1,7 @@
-package com.wz.emptyframe.serivce.system;
+package com.wz.emptyframe.service.system;
 
 import com.wz.emptyframe.entity.system.FileInfo;
-import com.wz.emptyframe.entity.system.User;
-import com.wz.emptyframe.serivce.base.IBaseService;
+import com.wz.emptyframe.service.base.IBaseService;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
