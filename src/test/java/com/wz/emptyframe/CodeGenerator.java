@@ -13,9 +13,6 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.wz.emptyframe.entity.base.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -76,8 +73,8 @@ public class CodeGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        //String moudleName = scanner("模块名");
-        String moudleName = "favorites";
+        String moudleName = scanner("模块名");
+        //String moudleName = "info";
         //pc.setModuleName(moudleName);
         String parentPackage = "com.wz.emptyframe";
         pc.setParent(parentPackage);
@@ -131,8 +128,11 @@ public class CodeGenerator {
         //templateConfig.setEntity("templates/entity.java");
         //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
         // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
+        templateConfig.setController("templates/controller.java");
+        templateConfig.setEntity("templates/entity.java");
+        templateConfig.setMapper("templates/mapper.java");
+        templateConfig.setService("templates/service.java");
+        templateConfig.setServiceImpl("templates/serviceImpl.java");
 
         templateConfig.setXml(null);
         //templateConfig.setController("...");
@@ -149,10 +149,11 @@ public class CodeGenerator {
         //strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id","create_user","create_time");
-        //strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setSuperEntityClass(BaseEntity.class);
-        strategy.setInclude("favorites_group");
-        strategy.setControllerMappingHyphenStyle(true);
+        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        //strategy.setInclude("favorites_info");
+        strategy.setControllerMappingHyphenStyle(false);
+        strategy.setSuperServiceClass("com.wz.emptyframe.service.base.IBaseService");
         //strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new FreemarkerTemplateEngine());
