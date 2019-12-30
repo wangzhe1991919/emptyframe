@@ -31,7 +31,7 @@ public class InfoboardServiceImpl extends ServiceImpl<InfoboardDao, Infoboard> i
 
         List<Infoboard> list = list();
         list.forEach(o -> {
-            Map<String,Object> map = new HashMap<String,Object>();
+            Map<String,Object> map;
             //经纬度
             String coords = o.getLng() + "," + o.getLat();
             //详细API阅读http://lbsyun.baidu.com/index.php?title=webapi/guide/changeposition
