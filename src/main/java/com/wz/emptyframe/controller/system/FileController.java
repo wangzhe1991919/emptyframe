@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,6 +34,12 @@ public class FileController {
     public Object uploadMultipleFiles(@ApiParam(value = "文件", name = "file") MultipartFile[] files) {
         List<FileInfo> fileInfoList = fileService.saveFile(files);
         return WebDTO.success(fileInfoList);
+    }
+
+    @GetMapping("/getFileList")
+    @ApiOperation(value = "获取文件列表")
+    public Object getFileList() {
+        return WebDTO.success(fileService.list());
     }
 
 }

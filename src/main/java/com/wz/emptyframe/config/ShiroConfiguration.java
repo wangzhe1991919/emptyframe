@@ -106,21 +106,11 @@ public class ShiroConfiguration implements EnvironmentAware {
         // anon：它对应的过滤器里面是空的,什么都没做,可以理解为不拦截
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainMap.put("/sys/login", "anon");
-        filterChainMap.put("/**", "authc");
+        filterChainMap.put("/**", "anon");
         //使用自定义的filter
         LinkedHashMap<String, Filter> filtsMap = new LinkedHashMap<>();
         filtsMap.put("authc",new MyShiroFormAuthenticationFilter());
         factoryBean.setFilters(filtsMap);
-        //不过滤swagger-ui
-        /*filterChainMap.put("/swagger-ui.html", "anon");
-        filterChainMap.put("/webjars/**", "anon");
-        filterChainMap.put("/v2/**", "anon");
-        filterChainMap.put("/swagger-resources/**", "anon");
-        filterChainMap.put("/static/**", "anon");
-        filterChainMap.put("/superzigApi/**", "anon");
-        filterChainMap.put("/global/sessionError", "anon");
-        filterChainMap.put("/kaptcha", "anon");
-        filterChainMap.put("/**", "authc");*/
 
         factoryBean.setFilterChainDefinitionMap(filterChainMap);
     }
