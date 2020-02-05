@@ -3,11 +3,11 @@ server:
   tomcat:
     uri-encoding: UTF-8
 spring:
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
   datasource:
+    hikari:
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
     url: jdbc:mysql://49.234.216.89:3306/emptyframe?characterEncoding=utf8
     driver-class-name: com.mysql.jdbc.Driver
     username: root
