@@ -13,4 +13,10 @@ import com.wz.emptyframe.service.base.IBaseService;
  */
 public interface SysNavigationService extends IBaseService<SysNavigation> {
 
+    /**
+     * 添加
+     * @param sysNavigation
+     * @return
+     */
+    Object insert(SysNavigation sysNavigation);
 }

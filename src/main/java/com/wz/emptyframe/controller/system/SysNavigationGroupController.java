@@ -43,8 +43,7 @@ public class SysNavigationGroupController {
     @PostMapping("/add")
     @ApiOperation(value = "添加")
     public Object add(@RequestBody SysNavigationGroup sysNavigationGroup) {
-        boolean b = defaultService.save(sysNavigationGroup);
-        return b?WebDTO.success():WebDTO.faliure(null,null);
+        return defaultService.insert(sysNavigationGroup);
     }
 
     @DeleteMapping("/delete")
@@ -57,8 +56,7 @@ public class SysNavigationGroupController {
     @PostMapping("/update")
     @ApiOperation(value = "修改")
     public Object update(@RequestBody SysNavigationGroup sysNavigationGroup) {
-        boolean b = defaultService.updateById(sysNavigationGroup);
-        return b?WebDTO.success():WebDTO.faliure(null,null);
+        return defaultService.update(sysNavigationGroup);
     }
 
     @PostMapping("/list")

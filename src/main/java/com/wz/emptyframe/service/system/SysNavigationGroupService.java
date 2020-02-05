@@ -13,4 +13,8 @@ import com.wz.emptyframe.service.base.IBaseService;
  */
 public interface SysNavigationGroupService extends IBaseService<SysNavigationGroup> {
 
+    Object insert(SysNavigationGroup sysNavigationGroup);
+
+    Object update(SysNavigationGroup sysNavigationGroup);
+
 }

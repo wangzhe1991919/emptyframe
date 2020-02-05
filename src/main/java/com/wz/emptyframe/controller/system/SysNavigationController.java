@@ -35,8 +35,7 @@ public class SysNavigationController {
     @PostMapping("/add")
     @ApiOperation(value = "添加")
     public Object add(@RequestBody SysNavigation sysNavigation) {
-        boolean b = defaultService.save(sysNavigation);
-        return b?WebDTO.success():WebDTO.faliure(null,null);
+        return defaultService.insert(sysNavigation);
     }
 
     @DeleteMapping("/delete")
