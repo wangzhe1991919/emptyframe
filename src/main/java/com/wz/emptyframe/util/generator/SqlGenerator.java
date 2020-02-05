@@ -95,7 +95,7 @@ public class SqlGenerator {
      * @return
      */
     private String genValueByTypeAndLength(int type,int length,String defaultValue) {
-        if (StringUtils.isNotEmpty(defaultValue)) {
+        if (StringUtils.isNotBlank(defaultValue)) {
             return defaultValue;
         }
         if (length == 0) {

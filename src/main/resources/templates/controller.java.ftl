@@ -6,10 +6,10 @@ import ${package.Service}.${table.serviceName};
 import com.wz.emptyframe.dto.WebDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import ${package.Entity}.${entity};
 import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
 
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
@@ -44,7 +44,7 @@ public class ${table.controllerName} extends ${superControllerClass} {
 public class ${table.controllerName} {
 </#if>
 
-    @Autowired
+    @Resource
     @Qualifier("${table.serviceImplName}")
     private ${table.serviceName} defaultService;
 

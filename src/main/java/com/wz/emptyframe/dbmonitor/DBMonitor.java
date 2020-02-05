@@ -111,7 +111,7 @@ public class DBMonitor {
 
                 //oracle
                 String name = rs.getString("TABLE_NAME");
-                if (StringUtils.isNotEmpty(name)) {
+                if (StringUtils.isNotBlank(name)) {
                     tableNames.add(name);
                 }
             }

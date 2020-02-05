@@ -1,6 +1,8 @@
 package com.wz.emptyframe.controller.system;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.wz.emptyframe.entity.system.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wz.emptyframe.service.system.SysNavigationGroupService;
 import com.wz.emptyframe.dto.WebDTO;
@@ -12,6 +14,8 @@ import com.wz.emptyframe.entity.system.SysNavigationGroup;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -26,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(description = "sysNavigationGroup")
 public class SysNavigationGroupController {
 
-    @Autowired
+    @Resource
     @Qualifier("sysNavigationGroupServiceImpl")
     private SysNavigationGroupService defaultService;
 
