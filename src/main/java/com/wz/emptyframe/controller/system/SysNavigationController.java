@@ -55,6 +55,6 @@ public class SysNavigationController {
     @PostMapping("/list")
     @ApiOperation(value = "获取列表")
     public Object list() {
-        return WebDTO.success(defaultService.list());
+        return WebDTO.success(defaultService.listDetail());
     }
 }

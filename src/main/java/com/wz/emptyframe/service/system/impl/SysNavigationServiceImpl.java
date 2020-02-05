@@ -38,6 +38,18 @@ public class SysNavigationServiceImpl extends ServiceImpl<SysNavigationDao, SysN
         return WebDTO.success();
     }
 
+    @Override
+    public Object listDetail() {
+
+        QueryWrapper queryWrapper = new QueryWrapper();
+
+        List<SysNavigation> list = sysNavigationDao.selectList(null);
+
+
+
+        return list;
+    }
+
     /**
      * 检查字段是否重复
      * @param sysNavigation

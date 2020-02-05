@@ -19,4 +19,10 @@ public interface SysNavigationService extends IBaseService<SysNavigation> {
      * @return
      */
     Object insert(SysNavigation sysNavigation);
+
+    /**
+     * 列表数据
+     * @return
+     */
+    Object listDetail();
 }
