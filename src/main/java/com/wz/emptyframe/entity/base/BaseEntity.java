@@ -1,5 +1,8 @@
 package com.wz.emptyframe.entity.base;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.util.Date;
 
 /**
@@ -12,6 +15,7 @@ public class BaseEntity {
 
     private String createUser;
 
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     public String getId() {
