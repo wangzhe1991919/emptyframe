@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--命名空间 确定方法所在的类-->
+<mapper namespace="com.wz.emptyframe.dao.system.SysNavigationDao">
+    <!-- id 必须与所在类的方法名一致-->
+    <!-- resultType 封装的位置-->
+    <select id="selectListDetail" resultType="com.wz.emptyframe.dto.system.SysNavigationVO">
+        SELECT
+            sn.*,
+            sng.name as groupName
+        FROM
+            sys_navigation sn
+            LEFT JOIN sys_navigation_group sng ON sn.group_id = sng.id
+        order by groupName
+    </select>
+</mapper>

@@ -3,6 +3,7 @@ package com.wz.emptyframe.service.system.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wz.emptyframe.constant.MsgConstant;
 import com.wz.emptyframe.dto.WebDTO;
+import com.wz.emptyframe.dto.system.SysNavigationVO;
 import com.wz.emptyframe.entity.system.SysNavigation;
 import com.wz.emptyframe.dao.system.SysNavigationDao;
 import com.wz.emptyframe.service.system.SysNavigationService;
@@ -40,13 +41,7 @@ public class SysNavigationServiceImpl extends ServiceImpl<SysNavigationDao, SysN
 
     @Override
     public Object listDetail() {
-
-        QueryWrapper queryWrapper = new QueryWrapper();
-
-        List<SysNavigation> list = sysNavigationDao.selectList(null);
-
-
-
+        List<SysNavigationVO> list = sysNavigationDao.selectListDetail();
         return list;
     }
 

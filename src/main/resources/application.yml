@@ -18,6 +18,8 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*/*.xml
+
 #和风天气的url和key
 weather:
   url: https://free-api.heweather.net/s6/weather/
