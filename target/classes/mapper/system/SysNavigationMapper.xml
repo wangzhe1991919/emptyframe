@@ -14,6 +14,6 @@
         FROM
             sys_navigation sn
             LEFT JOIN sys_navigation_group sng ON sn.group_id = sng.id
-        ORDER BY sng.sort,groupName ASC
+        ORDER BY sng.sort,groupName,sn.sort ASC
     </select>
 </mapper>
