@@ -25,4 +25,6 @@ public interface SysNavigationService extends IBaseService<SysNavigation> {
      * @return
      */
     Object listDetail();
+
+    Object listDetailIndex();
 }

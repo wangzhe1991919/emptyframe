@@ -41,11 +41,6 @@ public class SysNavigationGroupServiceImpl extends ServiceImpl<SysNavigationGrou
 
     @Override
     public Object update(SysNavigationGroup sysNavigationGroup) {
-        //查看名称是否重复
-        boolean repeat = checkRepeat(sysNavigationGroup);
-        if (repeat) {
-            return WebDTO.faliure(MsgConstant.NAME_REPEAT, null);
-        }
         sysNavigationGroupDao.updateById(sysNavigationGroup);
         return WebDTO.success();
     }

@@ -57,4 +57,10 @@ public class SysNavigationController {
     public Object list() {
         return WebDTO.success(defaultService.listDetail());
     }
+
+    @PostMapping("/listIndex")
+    @ApiOperation(value = "导航页获取列表")
+    public Object listIndex() {
+        return WebDTO.success(defaultService.listDetailIndex());
+    }
 }

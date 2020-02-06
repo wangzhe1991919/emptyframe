@@ -10,10 +10,10 @@
     <select id="selectListDetail" resultType="com.wz.emptyframe.dto.system.SysNavigationVO">
         SELECT
             sn.*,
-            sng.name as groupName
+            sng.name AS groupName
         FROM
             sys_navigation sn
             LEFT JOIN sys_navigation_group sng ON sn.group_id = sng.id
-        order by groupName
+        ORDER BY sng.sort,groupName ASC
     </select>
 </mapper>
