@@ -1,7 +1,9 @@
 server:
-  port: 80
+  port: 8080
   tomcat:
     uri-encoding: UTF-8
+  servlet:
+    context-path: /wz
 spring:
   datasource:
     hikari:

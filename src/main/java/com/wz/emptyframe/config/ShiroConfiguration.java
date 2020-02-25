@@ -106,7 +106,7 @@ public class ShiroConfiguration implements EnvironmentAware {
         // anon：它对应的过滤器里面是空的,什么都没做,可以理解为不拦截
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterChainMap.put("/sys/login", "anon");
-        filterChainMap.put("/**", "anon");
+        filterChainMap.put("/**", "authc");
         //使用自定义的filter
         LinkedHashMap<String, Filter> filtsMap = new LinkedHashMap<>();
         filtsMap.put("authc",new MyShiroFormAuthenticationFilter());
