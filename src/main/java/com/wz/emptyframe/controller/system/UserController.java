@@ -36,6 +36,8 @@ public class UserController {
         String errMsg = null;
         UsernamePasswordToken token = new UsernamePasswordToken(username,password);
         Subject currentUser = SecurityUtils.getSubject();
+        //登录永不超时
+        SecurityUtils.getSubject().getSession().setTimeout(-1000l);
         try {
             currentUser.login(token);
         } catch (UnknownAccountException uae) {
