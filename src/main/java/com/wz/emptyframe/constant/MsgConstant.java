@@ -18,4 +18,6 @@ public class MsgConstant {
     public static final int RESPONSECODE_500 = 500;
 
     public static final String NAME_REPEAT = "名称重复！";
+
+    public static final String PLEASE_LOGIN = "用户未登录";
 }

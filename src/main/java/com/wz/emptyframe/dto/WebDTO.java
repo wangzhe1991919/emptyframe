@@ -48,6 +48,20 @@ public class WebDTO {
 		return new WebDTO(MsgConstant.RESPONSECODE_500,message,data);
 	}
 	/**
+	 * 失败提示
+	 * @return
+	 */
+	public static Object faliure() {
+		return new WebDTO(MsgConstant.RESPONSECODE_500,"","");
+	}
+	/**
+	 * 失败提示
+	 * @return
+	 */
+	public static Object faliure(String message) {
+		return new WebDTO(MsgConstant.RESPONSECODE_500,message,"");
+	}
+	/**
 	 * 成功提示
 	 * @param data 数据
 	 * @return

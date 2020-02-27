@@ -1,17 +1,23 @@
 package com.wz.emptyframe.controller.system;
 
 
+import com.wz.emptyframe.entity.system.SysNote;
+import com.wz.emptyframe.service.system.SysNoteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wz.emptyframe.service.system.SysNavigationService;
 import com.wz.emptyframe.dto.WebDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.wz.emptyframe.entity.system.SysNavigation;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author wangzhe
@@ -25,6 +31,10 @@ public class SysNavigationController {
     @Autowired
     @Qualifier("sysNavigationServiceImpl")
     private SysNavigationService defaultService;
+
+    @Autowired
+    @Qualifier("sysNoteServiceImpl")
+    private SysNoteService sysNoteService;
 
     @GetMapping("/get")
     @ApiOperation(value = "获取详情")
@@ -62,5 +72,18 @@ public class SysNavigationController {
     @ApiOperation(value = "导航页获取列表")
     public Object listIndex() {
         return WebDTO.success(defaultService.listDetailIndex());
+    }
+
+    @PostMapping("/addNote")
+    @ApiOperation(value = "添加或修改笔记")
+    public Object addNote(@RequestBody SysNote sysNote) {
+        Object result = sysNoteService.saveOrUpdate(sysNote)?WebDTO.success(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))):WebDTO.faliure();
+        return result;
+    }
+
+    @GetMapping("/getNote")
+    @ApiOperation(value = "获取当前用户笔记")
+    public Object getNote() {
+        return sysNoteService.listCurrUser();
     }
 }
