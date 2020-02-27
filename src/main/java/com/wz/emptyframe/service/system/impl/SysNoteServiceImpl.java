@@ -31,13 +31,10 @@ public class SysNoteServiceImpl extends ServiceImpl<SysNoteDao, SysNote> impleme
     @Override
     public Object listCurrUser() {
         //当前登录用户信息
-        /*User user = (User) SecurityUtils.getSubject().getPrincipal();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user == null) {
             return WebDTO.faliure(MsgConstant.PLEASE_LOGIN);
-        }*/
-        User user = new User();
-        user.setId("04d214e0e3154a4f9081148331f6212b");
-
+        }
         QueryWrapper<SysNote> qw = new QueryWrapper();
         qw.eq("create_user", user.getId());
         qw.orderByDesc("create_time");
