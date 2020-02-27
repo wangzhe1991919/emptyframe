@@ -41,7 +41,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (user != null){
             logger.info("用户: " + user.getEmail());
             // 若存在，将此用户存放到登录认证info中，无需自己做密码对比，Shiro会为我们进行密码对比校验
-            return new SimpleAuthenticationInfo(user.getEmail(), user.getPassword(), getName());
+            return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
         }
         return null;
     }
