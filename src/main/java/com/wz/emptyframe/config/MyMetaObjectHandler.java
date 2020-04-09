@@ -13,7 +13,8 @@ import java.util.Date;
 public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
-        this.strictInsertFill(metaObject, "createTime", Date.class, new Date()); // 起始版本 3.3.0(推荐使用)
+        // 起始版本 3.3.0(推荐使用)
+        this.strictInsertFill(metaObject, "createTime", Date.class, new Date());
     }
 
     @Override

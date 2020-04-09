@@ -13,9 +13,11 @@ public class CommonConfig {
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         //CharacterEncodingFilter SpringWeb提供的过滤器类
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-        characterEncodingFilter.setForceEncoding(true);//强制编码
+        //强制编码
+        characterEncodingFilter.setForceEncoding(true);
         characterEncodingFilter.setEncoding("UTF-8");
-        registrationBean.setFilter(characterEncodingFilter);//注册的过滤器拦截的路径
+        //注册的过滤器拦截的路径
+        registrationBean.setFilter(characterEncodingFilter);
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
