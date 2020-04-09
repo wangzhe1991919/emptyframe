@@ -62,6 +62,8 @@ public class SysNavigationGroupController {
     @PostMapping("/list")
     @ApiOperation(value = "获取列表")
     public Object list() {
-        return WebDTO.success(defaultService.list());
+        QueryWrapper<SysNavigationGroup> qw = new QueryWrapper<SysNavigationGroup>();
+        qw.orderByAsc("sort");
+        return WebDTO.success(defaultService.list(qw));
     }
 }
