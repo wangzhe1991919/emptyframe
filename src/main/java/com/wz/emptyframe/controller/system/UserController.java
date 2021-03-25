@@ -58,7 +58,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/getUserList",method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/getUserList",method = {RequestMethod.GET})
     @ApiOperation(value = "获取用户信息")
     public Object getUserList(UserQuery query) {
         Object data = userService.list();
