@@ -84,6 +84,12 @@ public class SysNavigationController {
     @GetMapping("/getNote")
     @ApiOperation(value = "获取当前用户笔记")
     public Object getNote() {
-        return sysNoteService.listCurrUser();
+        return sysNoteService.listNewCurrUser();
+    }
+
+    @PostMapping("/saveAndCreateNote")
+    @ApiOperation(value = "保存并创建新的笔记")
+    public Object saveAndCreateNote(@RequestBody SysNote sysNote) {
+        return WebDTO.success(sysNoteService.saveAndCreateNote(sysNote));
     }
 }

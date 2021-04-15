@@ -13,5 +13,15 @@ import com.wz.emptyframe.service.base.IBaseService;
  */
 public interface SysNoteService extends IBaseService<SysNote> {
 
-    Object listCurrUser();
+    /**
+     * 获取当前用户最新的一条笔记内容
+     * @return
+     */
+    Object listNewCurrUser();
+
+    /**
+     * 保存当前用户最新一条笔记，然后复制并新建一条
+     * @return
+     */
+    SysNote saveAndCreateNote(SysNote sysNote);
 }

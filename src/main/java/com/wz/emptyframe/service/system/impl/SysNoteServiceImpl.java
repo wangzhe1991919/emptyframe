@@ -12,6 +12,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,7 +30,7 @@ public class SysNoteServiceImpl extends ServiceImpl<SysNoteDao, SysNote> impleme
     private SysNoteDao sysNoteDao;
 
     @Override
-    public Object listCurrUser() {
+    public Object listNewCurrUser() {
         //当前登录用户信息
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         if (user == null) {
@@ -45,5 +46,13 @@ public class SysNoteServiceImpl extends ServiceImpl<SysNoteDao, SysNote> impleme
             result = list.get(0);
         }
         return WebDTO.success(result);
+    }
+
+    @Override
+    public SysNote saveAndCreateNote(SysNote sysNote) {
+        //创建一条新的笔记,将时间设置为当前时间
+        sysNote.setCreateTime(new Date());
+        sysNoteDao.insert(sysNote);
+        return sysNote;
     }
 }
