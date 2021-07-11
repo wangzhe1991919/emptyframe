@@ -23,5 +23,5 @@ public interface SysNoteService extends IBaseService<SysNote> {
      * 保存当前用户最新一条笔记，然后复制并新建一条
      * @return
      */
-    SysNote saveAndCreateNote(SysNote sysNote);
+    int saveAndCreateNote(SysNote sysNote);
 }

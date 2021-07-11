@@ -90,6 +90,7 @@ public class SysNavigationController {
     @PostMapping("/saveAndCreateNote")
     @ApiOperation(value = "保存并创建新的笔记")
     public Object saveAndCreateNote(@RequestBody SysNote sysNote) {
-        return WebDTO.success(sysNoteService.saveAndCreateNote(sysNote));
+        int result = sysNoteService.saveAndCreateNote(sysNote);
+        return result>0?LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")):WebDTO.faliure();
     }
 }
