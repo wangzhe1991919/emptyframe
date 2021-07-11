@@ -2,7 +2,9 @@ package com.wz.emptyframe.controller.system;
 
 
 import com.wz.emptyframe.entity.system.SysNote;
+import com.wz.emptyframe.entity.system.User;
 import com.wz.emptyframe.service.system.SysNoteService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.wz.emptyframe.service.system.SysNavigationService;
@@ -77,6 +79,8 @@ public class SysNavigationController {
     @PostMapping("/addNote")
     @ApiOperation(value = "添加或修改笔记")
     public Object addNote(@RequestBody SysNote sysNote) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        sysNote.setCreateUser(user.getId());
         Object result = sysNoteService.saveOrUpdate(sysNote)?WebDTO.success(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))):WebDTO.faliure();
         return result;
     }
@@ -91,6 +95,6 @@ public class SysNavigationController {
     @ApiOperation(value = "保存并创建新的笔记")
     public Object saveAndCreateNote(@RequestBody SysNote sysNote) {
         int result = sysNoteService.saveAndCreateNote(sysNote);
-        return result>0?LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")):WebDTO.faliure();
+        return result>0?WebDTO.success(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))):WebDTO.faliure();
     }
 }

@@ -26,7 +26,7 @@ public class User {
 
     private String phone;
 
-    private Date CreateDate;
+    private Date createDate;
 
     public String getId() {
         return id;
@@ -85,10 +85,10 @@ public class User {
     }
 
     public Date getCreateDate() {
-        return CreateDate;
+        return createDate;
     }
 
     public void setCreateDate(Date createDate) {
-        CreateDate = createDate;
+        this.createDate = createDate;
     }
 }

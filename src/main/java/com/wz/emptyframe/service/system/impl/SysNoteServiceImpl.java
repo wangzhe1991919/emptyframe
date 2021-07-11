@@ -51,6 +51,8 @@ public class SysNoteServiceImpl extends ServiceImpl<SysNoteDao, SysNote> impleme
 
     @Override
     public int saveAndCreateNote(SysNote sysNote) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        sysNote.setCreateUser(user.getId());
         //首先存储旧的笔记
         saveOrUpdate(sysNote);
         //创建一条新的笔记,将时间设置为当前时间，ID设置为新的

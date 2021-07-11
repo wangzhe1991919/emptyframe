@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/favorites-group")
-@Api(description = "收藏夹分组")
+@Api(tags = "收藏夹分组")
 public class FavoritesGroupController {
 
     @Autowired
