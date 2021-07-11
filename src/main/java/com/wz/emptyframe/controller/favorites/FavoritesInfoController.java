@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/favoritesInfo")
-@Api(description = "favoritesInfo")
+@Api(tags = "favoritesInfo")
 public class FavoritesInfoController {
 
     @Autowired

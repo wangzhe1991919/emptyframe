@@ -8,6 +8,7 @@ import com.wz.emptyframe.dto.WebDTO;
 import com.wz.emptyframe.entity.system.SysNote;
 import com.wz.emptyframe.entity.system.User;
 import com.wz.emptyframe.service.system.SysNoteService;
+import com.wz.emptyframe.util.common.UUIDUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,10 @@ public class SysNoteServiceImpl extends ServiceImpl<SysNoteDao, SysNote> impleme
 
     @Override
     public SysNote saveAndCreateNote(SysNote sysNote) {
-        //创建一条新的笔记,将时间设置为当前时间
+        //首先存储旧的笔记
+        saveOrUpdate(sysNote);
+        //创建一条新的笔记,将时间设置为当前时间，ID设置为新的
+        sysNote.setId(UUIDUtils.uuid());
         sysNote.setCreateTime(new Date());
         sysNoteDao.insert(sysNote);
         return sysNote;

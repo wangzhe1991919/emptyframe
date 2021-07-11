@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
  */
 @RestController
 @RequestMapping("/sysNavigation")
-@Api(description = "sysNavigation")
+@Api(tags = "sysNavigation")
 public class SysNavigationController {
 
     @Autowired
